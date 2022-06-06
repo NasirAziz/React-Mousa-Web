@@ -38,6 +38,13 @@ export default function AcuityTable({ data }) {
 
     }
 
+    function formatDate(string) {
+        //var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        let date = new Date(string.substring(0, 10)).toLocaleDateString('en-US') + " "
+        let time = new Date(string.substring(0, 10) + " " + string.substring(11, 18)).toLocaleTimeString('en-US', { hour12: true })
+        return date + time;
+    }
+
     return (
         <TableContainer sx={{ height: 500 }} component={Paper}>
             <Table sx={{ minWidth: 700, height: "max-content" }} aria-label="customized table">
@@ -50,7 +57,9 @@ export default function AcuityTable({ data }) {
                     {data.map((row) => (
                         <StyledTableRow key={row.DateTime}>
                             <StyledTableCell component="th" scope="row">
-                                {row.DateTime}
+                                {
+                                    formatDate(row.DateTime)
+                                }
                             </StyledTableCell>
                             <StyledTableCell>{row.Paid}</StyledTableCell>
                             <StyledTableCell>{row.Type}</StyledTableCell>
