@@ -11,12 +11,12 @@ import TextlineTable from "./components/Table/TextlineTable";
 
 function App() {
   const [data, setData] = useState({ Airtable: [], Acuity: [], Textline: [] });
-  const [isLoading, setIsLoading] = useState(false);
-  const [err, setErr] = useState('');
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [err, setErr] = useState('');
   const [phone, setPhone] = useState('929-423-3651');
 
   const handleClick = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const response = await fetch('https://hook.us1.make.com/der2itrt38fuk2rsmpclth7qohnaivj1?phone=' + phone);
 
@@ -31,9 +31,9 @@ function App() {
       console.log(data.Acuity.map(item => item.id));
       showTables();
     } catch (err) {
-      setErr(err.message);
+      // setErr(err.message);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
