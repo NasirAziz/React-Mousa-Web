@@ -1,0 +1,425 @@
+{
+    "acuity": [
+        {
+            "id": 826216916,
+            "firstName": "Miri",
+            "lastName": "Rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "June 30, 2022",
+            "time": "9:45am",
+            "endTime": "11:15am",
+            "dateCreated": "May 16, 2022",
+            "datetimeCreated": "2022-05-16T15:50:57-0500",
+            "datetime": "2022-06-30T09:45:00-0400",
+            "price": "20.00",
+            "priceSold": "155.00",
+            "paid": "no",
+            "amountPaid": "0.00",
+            "type": "Road Test",
+            "appointmentTypeID": 28663862,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "90",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "PACKAGE",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=2765012f30334a097515afdd59d060d1",
+            "location": "3705 Ave L"
+        },
+        {
+            "id": 826216384,
+            "firstName": "Miri",
+            "lastName": "Rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "June 30, 2022",
+            "time": "8:45am",
+            "endTime": "9:45am",
+            "dateCreated": "May 16, 2022",
+            "datetimeCreated": "2022-05-16T15:50:15-0500",
+            "datetime": "2022-06-30T08:45:00-0400",
+            "price": "75.00",
+            "priceSold": "75.00",
+            "paid": "no",
+            "amountPaid": "0.00",
+            "type": "1 Hour lesson",
+            "appointmentTypeID": 28311218,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "60",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=52c9468718dd20555f32fa35158aba84",
+            "location": "3705 Ave L"
+        },
+        {
+            "id": 820085327,
+            "firstName": "miri",
+            "lastName": "rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "June 23, 2022",
+            "time": "6:45pm",
+            "endTime": "7:45pm",
+            "dateCreated": "May 5, 2022",
+            "datetimeCreated": "2022-05-05T22:45:05-0500",
+            "datetime": "2022-06-23T18:45:00-0400",
+            "price": "75.00",
+            "priceSold": "75.00",
+            "paid": "yes",
+            "amountPaid": "0.00",
+            "type": "1 Hour lesson",
+            "appointmentTypeID": 28311218,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "60",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=dc8cffe5d8ee797d618ff506ee327eb2",
+            "location": "3705 Ave L"
+        },
+        {
+            "id": 824332607,
+            "firstName": "miri",
+            "lastName": "rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "June 13, 2022",
+            "time": "5:30pm",
+            "endTime": "6:30pm",
+            "dateCreated": "May 13, 2022",
+            "datetimeCreated": "2022-05-13T00:00:53-0500",
+            "datetime": "2022-06-13T17:30:00-0400",
+            "price": "75.00",
+            "priceSold": "75.00",
+            "paid": "yes",
+            "amountPaid": "0.00",
+            "type": "1 Hour lesson",
+            "appointmentTypeID": 28311218,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "60",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=0c84654a777ee48036a0999a7cfd10aa",
+            "location": "3705 Ave L"
+        },
+        {
+            "id": 824334063,
+            "firstName": "miri",
+            "lastName": "rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "June 7, 2022",
+            "time": "5:30pm",
+            "endTime": "6:30pm",
+            "dateCreated": "May 13, 2022",
+            "datetimeCreated": "2022-05-13T00:08:33-0500",
+            "datetime": "2022-06-07T17:30:00-0400",
+            "price": "75.00",
+            "priceSold": "75.00",
+            "paid": "yes",
+            "amountPaid": "0.00",
+            "type": "1 Hour lesson",
+            "appointmentTypeID": 28311218,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "60",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=ab2f4a45cbe72145a5c85c932d8c88f0",
+            "location": "3705 Ave L"
+        },
+        {
+            "id": 781152534,
+            "firstName": "miri",
+            "lastName": "rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "May 3, 2022",
+            "time": "6:45pm",
+            "endTime": "7:45pm",
+            "dateCreated": "March 5, 2022",
+            "datetimeCreated": "2022-03-05T19:05:11-0600",
+            "datetime": "2022-05-03T18:45:00-0400",
+            "price": "0.00",
+            "priceSold": "75.00",
+            "paid": "yes",
+            "amountPaid": "0.00",
+            "type": "1 Hour lesson",
+            "appointmentTypeID": 28311218,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "60",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "E33C486C",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=ae2d82840a657c14fdc8bf5e6d13fe71",
+            "location": "3705 ave L"
+        },
+        {
+            "id": 756783796,
+            "firstName": "Miri",
+            "lastName": "Rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "March 20, 2022",
+            "time": "11:45am",
+            "endTime": "12:45pm",
+            "dateCreated": "January 27, 2022",
+            "datetimeCreated": "2022-01-27T12:48:29-0600",
+            "datetime": "2022-03-20T11:45:00-0400",
+            "price": "0.00",
+            "priceSold": "75.00",
+            "paid": "yes",
+            "amountPaid": "0.00",
+            "type": "1 Hour lesson",
+            "appointmentTypeID": 28311218,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "60",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "E33C486C",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=4ecd0640e87cf0314fac72b3d26379d1",
+            "location": "3705 ave L"
+        },
+        {
+            "id": 756783062,
+            "firstName": "Miri",
+            "lastName": "Rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "March 13, 2022",
+            "time": "11:45am",
+            "endTime": "12:45pm",
+            "dateCreated": "January 27, 2022",
+            "datetimeCreated": "2022-01-27T12:47:33-0600",
+            "datetime": "2022-03-13T11:45:00-0400",
+            "price": "0.00",
+            "priceSold": "75.00",
+            "paid": "yes",
+            "amountPaid": "0.00",
+            "type": "1 Hour lesson",
+            "appointmentTypeID": 28311218,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "60",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "E33C486C",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=4e469ca4bcff1c0fe68ae6bbe972865d",
+            "location": "3705 ave L"
+        },
+        {
+            "id": 756782103,
+            "firstName": "Miri",
+            "lastName": "Rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "March 6, 2022",
+            "time": "4:15pm",
+            "endTime": "5:15pm",
+            "dateCreated": "January 27, 2022",
+            "datetimeCreated": "2022-01-27T12:46:29-0600",
+            "datetime": "2022-03-06T16:15:00-0500",
+            "price": "0.00",
+            "priceSold": "75.00",
+            "paid": "yes",
+            "amountPaid": "0.00",
+            "type": "1 Hour lesson",
+            "appointmentTypeID": 28311218,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "60",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "E33C486C",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=f73d1232758e86b4836802a7967f0776",
+            "location": "3705 ave L"
+        },
+        {
+            "id": 756780165,
+            "firstName": "Miri",
+            "lastName": "Rosenblatt",
+            "phone": "9294233651",
+            "email": "mirirosenblatt@gmail.com",
+            "date": "February 27, 2022",
+            "time": "2:15pm",
+            "endTime": "3:15pm",
+            "dateCreated": "January 27, 2022",
+            "datetimeCreated": "2022-01-27T12:44:02-0600",
+            "datetime": "2022-02-27T14:15:00-0500",
+            "price": "0.00",
+            "priceSold": "75.00",
+            "paid": "yes",
+            "amountPaid": "0.00",
+            "type": "1 Hour lesson",
+            "appointmentTypeID": 28311218,
+            "classID": "",
+            "addonIDs": [],
+            "category": "Boro Park/Flatbush ",
+            "duration": "60",
+            "calendar": "Michoel Hettelman",
+            "calendarID": 2277604,
+            "certificate": "E33C486C",
+            "confirmationPage": "https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=3f104a8868a96f9b2a8180699ac65bde",
+            "location": "3705 ave L"
+        }
+    ],
+    "textline": [
+        {
+            "name": "From Import",
+            "post": "Thanks, should we mail it to the address on your permit?"
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "Yes, thank you"
+        },
+        {
+            "name": "From Import",
+            "post": "No problem."
+        },
+        {
+            "name": "From Import",
+            "post": "Your certificate has been issued. If you/'d like to book a road test here is the certificate information, #M485961 dated 2/6/2022\\n\\n You can book on the DMV site  if you need help please fill out this form  so we can have a better idea of what you are looking for. If you have any questions, feel free to shoot us a text, right here."
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "Hi just wondering when my certificate is supposed to arrive?"
+        },
+        {
+            "name": "From Import",
+            "post": "Thanks for texting us. During this season there may be a bit of delay in getting a response, but we will get to you ASAP. Thanks for your patience!"
+        },
+        {
+            "name": "From Import",
+            "post": "We mailed it out on 2/7"
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "From where?"
+        },
+        {
+            "name": "From Import",
+            "post": "To your permit address"
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "I never received it."
+        },
+        {
+            "name": "From Import",
+            "post": "We will issue a new one, whats your mailing address?"
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "3705 ave L Brooklyn ny 11210"
+        },
+        {
+            "name": "From Import",
+            "post": "Your certificate has been issued. If you/'d like to book a road test here is the certificate information, # M524832  dated 02/18/2022 You can book on the DMV site  if you need help please fill out this form  so we can have a better idea of what you are looking for. If you have any questions, feel free to shoot us a text, right here."
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "Ty!"
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "Hi can i get a package?"
+        },
+        {
+            "name": "From Import",
+            "post": "Thanks for reaching out!. We are offline :( Our normal hours are from 10 AM to 6 PM  Mon-Thurs. (we do take a peek here and there, even when we are closed) We are happy to now offer online bookings! Check it out  Thanks for your patience!"
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "8 hour"
+        },
+        {
+            "name": "From Import",
+            "post": "Please text us tomorrow after 11 am, thanks!"
+        },
+        {
+            "name": "From Import",
+            "post": "Please fill out this form  so we can better understand what you are looking for. If you have any questions, or you do not have internet access feel free to shoot us a text right here and one of our reps can fill the form for you."
+        },
+        {
+            "name": "From Import",
+            "post": "Your road test has been booked\\n\\nID: 566293152\\n\\nTest Site: Seaview\\n\\nTest Type: DJ\\n\\nAppt Date/Time:   6/30/2022 10:15:00 AM\\n\\nConfirmation Number:   737712593\\n\\nWhat is the pick-up address for the day of the test, and would you like a lesson right before?"
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "3705 ave L. Is a lesson included in the 8 hour package?"
+        },
+        {
+            "name": "From Import",
+            "post": "Thanks for reaching out!. We are offline :( Our normal hours are from 10 AM to 6 PM  Mon-Thurs. (we do take a peek here and there, even when we are closed) We are happy to now offer online bookings! Check it out  Thanks for your patience!"
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "Hi I need to cancel my lesson for this Sunday"
+        },
+        {
+            "name": "From Import",
+            "post": "Thanks for reaching out!. We are offline :( Our normal hours are from 10 AM to 6 PM  Mon-Thurs. (we do take a peek here and there, even when we are closed) We are happy to now offer online bookings! Check it out  Thanks for your patience!"
+        },
+        {
+            "name": "From Import",
+            "post": "I cancelled it."
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "Thank you"
+        },
+        {
+            "name": "Miri Rosenblatt",
+            "post": "Hi I need to cancel my appointment for tomorrow and this coming Sunday"
+        },
+        {
+            "name": "From Import",
+            "post": "Your message is important to us! We will reply as soon as possible. Thanks for your patience!"
+        },
+        {
+            "name": "From Import",
+            "post": "OK"
+        },
+        {
+            "name": "System",
+            "post": ""
+        }
+    ],
+    "airtable": [
+        {
+            "Last Name": "Rosenblatt",
+            "Tier": [
+                "6. Part of Package ($0)- Up to an 8 week wait"
+            ],
+            "First Name": "Miriam",
+            "Phone Number": "929-423-3651",
+            "Test Date": "2022-06-30",
+            "Test Time": "10:15",
+            "Test Location": "Seaview",
+            "Notification Status": [
+                "notified",
+                "@a"
+            ],
+            "Permit Number": "566293152",
+            "Certificate Number": "000000"
+        }
+    ]
+}
