@@ -1,0 +1,27 @@
+.Appointment-search-container {
+    width: 30%;
+    height: 100%;
+    margin: auto;
+    /* display: flex; */
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: end;
+    align-items: end;
+
+}
+
+.Appointment_container {
+    padding: 2rem;
+}
+
+.Appointment_heading {
+    display: block;
+    flex-direction: column;
+    text-align: left;
+    color: #1574c7;
+    font-weight: 100;
+    font-family: 'Arial', sans-serif;
+    font-style: normal;
+    margin-bottom: 4rem;
+
+}

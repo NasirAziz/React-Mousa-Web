@@ -14,10 +14,34 @@
 }
 
 .App-header {
-  display: flex;
+  display: block;
   flex-direction: column;
   text-align: center;
-  color: dodgerblue;
+  color: #1574c7;
+  font-weight: 100;
+  font-family: 'Arial', sans-serif;
+  font-style: normal;
+  margin-top: 6rem;
+  margin-bottom: 4rem;
+
+}
+
+.toShow {
+  display: none;
+}
+
+.tb-header {
+  color: #1574c7;
+  margin-bottom: -1rem;
+  margin-left: 2rem;
+}
+
+.tb-table {
+  margin-bottom: 3rem;
+}
+
+.tb-table-container {
+  padding: 2rem;
 }
 
 .App-link {

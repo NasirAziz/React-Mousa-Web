@@ -10,12 +10,16 @@ import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor: '#104a7c',
         color: theme.palette.common.white,
+        border: '1px solid #e6eff5',
     },
     [`&.${tableCellClasses.body}`]: {
+        // backgroundColor: 'white',
         fontSize: 14,
+        border: '1px solid #e6eff5',
     },
+
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -23,17 +27,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
         backgroundColor: theme.palette.action.hover,
     },
     // hide last border
-    '&:last-child td, &:last-child th': {
-        border: 0,
-    },
+    // '&:last-child td, &:last-child th': {
+    //     border: 0,
+    // },
 }));
+
 
 export default function AcuityTable({ data }) {
 
+    //Acuity fields(respectively)(same order)
+    //First Name Last Name Date Time Location Notes Phone Email Paid in Car Type Calendar Certificate Confirmation page 'Email', 'Paid', 'Amount Paid in Car',
     function renderTableHeader() {
-        const header2 = ['DateTime', 'Paid', 'Type', 'Email', 'Notes', 'Phone', 'Calendar', 'Location', 'First Name', 'LastName', 'Confirmation Page', 'Amount Paid in Car'];
-        return header2.map((key, index) => {
-            return <StyledTableCell>{key}</StyledTableCell>
+        const header = ['First Name', 'Last Name', 'Date Time', 'Type', 'Location', 'Notes', 'Phone', 'Email', 'Amount Paid in Car', 'Calendar', 'Confirmation Page'];
+        return header.map((key, index) => {
+            return <StyledTableCell style={{ fontWeight: 'bold', fontSize: 18 }} >{key}</StyledTableCell>
         })
 
     }
@@ -42,40 +49,37 @@ export default function AcuityTable({ data }) {
         //var options = { year: 'numeric', month: 'long', day: 'numeric' };
         let date = new Date(string.substring(0, 10)).toLocaleDateString('en-US') + " "
         let time = new Date(string.substring(0, 10) + " " + string.substring(11, 18)).toLocaleTimeString('en-US', { hour12: true })
-        return date + time;
+        // console.log("Acuity Table " + string)
+        // console.log(date + "\n" + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length))
+        return date + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length);
     }
 
     return (
-        <TableContainer sx={{ height: 500 }} component={Paper}>
-            <Table sx={{ minWidth: 700, height: "max-content" }} aria-label="customized table">
+        <TableContainer sx={{ height: 'auto' }} component={Paper}>
+            <Table stickyHeader sx={{ width: 'max-content', height: "max-content" }} aria-label="customized table">
                 <TableHead>
                     <TableRow>
                         {renderTableHeader()}
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {data.map((row) => (
+                {data.map((row, index) => (
+                    <TableBody style={index % 2 == 0 ? { backgroundColor: "#e6eff5" } : { backgroundColor: "#fff" }} >
                         <StyledTableRow key={row.DateTime}>
-                            <StyledTableCell component="th" scope="row">
-                                {
-                                    formatDate(row.DateTime)
-                                }
-                            </StyledTableCell>
-                            <StyledTableCell>{row.Paid}</StyledTableCell>
-                            <StyledTableCell>{row.Type}</StyledTableCell>
-                            <StyledTableCell>{row.Email}</StyledTableCell>
-                            <StyledTableCell>{row.Notes}</StyledTableCell>
-                            <StyledTableCell>{row.Phone}</StyledTableCell>
-                            <StyledTableCell>{row.Calendar}</StyledTableCell>
-                            <StyledTableCell>{row.Location}</StyledTableCell>
-                            <StyledTableCell>{row['First Name']}</StyledTableCell>
+                            <StyledTableCell component="th" scope="row">{row['First Name']}</StyledTableCell>
                             <StyledTableCell>{row['Last Name']}</StyledTableCell>
+                            <StyledTableCell >{formatDate(row.DateTime)}</StyledTableCell>
+                            <StyledTableCell>{row.Type}</StyledTableCell>
+                            <StyledTableCell>{row.Location}</StyledTableCell>
+                            <StyledTableCell style={{ width: 200 }}>{row.Notes}</StyledTableCell>
+                            <StyledTableCell>{row.Phone}</StyledTableCell>
+                            <StyledTableCell>{row.Email}</StyledTableCell>
+                            <StyledTableCell style={{ width: 50 }} >{row['Amount Paid in Car']}</StyledTableCell>
+                            <StyledTableCell>{row.Calendar}</StyledTableCell>
                             <StyledTableCell>{row['Confirmation page']}</StyledTableCell>
-                            <StyledTableCell>{row['Amount Paid in Car']}</StyledTableCell>
 
                         </StyledTableRow>
-                    ))}
-                </TableBody>
+                    </TableBody>
+                ))}
             </Table>
         </TableContainer>
     );

@@ -10,11 +10,13 @@ import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor: '#104a7c',
         color: theme.palette.common.white,
+        border: '1px solid #e6eff5',
     },
     [`&.${tableCellClasses.body}`]: {
         fontSize: 14,
+        border: '1px solid #e6eff5',
     },
 }));
 
@@ -23,9 +25,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
         backgroundColor: theme.palette.action.hover,
     },
     // hide last border
-    '&:last-child td, &:last-child th': {
-        border: 0,
-    },
+    // '&:last-child td, &:last-child th': {
+    //     border: 0,
+    // },
 }));
 
 export default function TextlineTable({ data }) {
@@ -33,31 +35,39 @@ export default function TextlineTable({ data }) {
     function renderTableHeader() {
         const header2 = ['Name', 'Message', 'Timestamp'];
         return header2.map((key, index) => {
-            return <StyledTableCell>{key}</StyledTableCell>
+            return <StyledTableCell style={{ fontWeight: 'bold', fontSize: 18 }} >{key}</StyledTableCell>
         })
 
     }
 
+    function formatDate(string) {
+        //var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        let date = new Date(string.substring(0, 10)).toLocaleDateString('en-US') + " "
+        let time = new Date(string.substring(0, 10) + " " + string.substring(11, 18)).toLocaleTimeString('en-US', { hour12: true })
+        // console.log("TextLine " + string)
+
+        // console.log(date + "\n" + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length))
+        return date + "\n" + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length);
+    }
+
     return (
         <TableContainer sx={{ height: 500 }} component={Paper}>
-            <Table sx={{ minWidth: 700, height: "max-content" }} aria-label="customized table">
+            <Table stickyHeader sx={{ minWidth: 700, height: "max-content" }} aria-label="customized table">
                 <TableHead>
                     <TableRow>
                         {renderTableHeader()}
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {data.map((row) => (
-                        <StyledTableRow key={row.DateTime}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.Name}
-                            </StyledTableCell>
+                {data.map((row, index) => (
+                    <TableBody style={index % 2 == 0 ? { backgroundColor: "#e6eff5" } : { backgroundColor: "#fff" }}>
+                        <StyledTableRow key={row.Timestamp}>
+                            <StyledTableCell component="th" scope="row">{row.Name}</StyledTableCell>
                             <StyledTableCell>{row.Message}</StyledTableCell>
-                            <StyledTableCell>{row.Timestamp}</StyledTableCell>
+                            <StyledTableCell sx={{ width: 80 }}>{formatDate(row.Timestamp)}</StyledTableCell>
 
                         </StyledTableRow>
-                    ))}
-                </TableBody>
+                    </TableBody>
+                ))}
             </Table>
         </TableContainer>
     );
