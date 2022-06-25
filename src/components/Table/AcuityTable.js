@@ -49,7 +49,7 @@ export default function AcuityTable({ data }) {
         //var options = { year: 'numeric', month: 'long', day: 'numeric' };
         let date = new Date(string.substring(0, 10)).toLocaleDateString('en-US') + " "
         let time = new Date(string.substring(0, 10) + " " + string.substring(11, 18)).toLocaleTimeString('en-US', { hour12: true })
-        // console.log("Acuity Table " + string)
+        console.log("Acuity Table " + string)
         // console.log(date + "\n" + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length))
         return date + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length);
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import { Button, TextField, Alert, AlertTitle } from '@mui/material';
 
@@ -16,7 +16,6 @@ function App() {
 
 
   const Header = () => {
-    const [tempData, setTempData] = useState({ Airtable: [], Acuity: [], Textline: [] });
 
     const [phone, setPhone] = useState('');
     const handlePhoneChange = (e) => { setPhone(e.target.value) }

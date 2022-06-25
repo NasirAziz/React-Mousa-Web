@@ -2,26 +2,41 @@
     width: 30%;
     height: 100%;
     margin: auto;
-    /* display: flex; */
+    margin-left: 40%;
+    display: block;
     flex-direction: column;
     padding: 1rem;
-    justify-content: end;
-    align-items: end;
+    justify-content: start;
+    align-items: start;
 
+    /* background-color: #1574c7; */
 }
 
 .Appointment_container {
     padding: 2rem;
 }
 
+.Appointment-search-container h4 {
+    text-align: left;
+    margin-bottom: -0.6rem;
+    margin-top: -0.6rem;
+}
+
+.Appointment_container h2 {
+    text-align: left;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+}
+
+.Appointment-search-container Button {
+    text-align: left;
+    align-self: start;
+}
+
 .Appointment_heading {
-    display: block;
-    flex-direction: column;
     text-align: left;
     color: #1574c7;
-    font-weight: 100;
     font-family: 'Arial', sans-serif;
-    font-style: normal;
     margin-bottom: 4rem;
 
 }

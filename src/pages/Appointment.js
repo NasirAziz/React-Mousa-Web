@@ -42,58 +42,83 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 export default function Appointment() {
-    function renderTableHeader() {
-        const header = ['First Name', 'Last Name', 'Date Time', 'Type', 'Location', 'Notes', 'Phone', 'Email', 'Paid', 'Amount Paid in Car', 'Calendar', 'Confirmation Page'];
+    function renderTableHeader() {//'Confirmation Page'
+        const header = ['First Name', 'Last Name', 'Date Time', 'Appointment Type', 'Email', 'Phone', 'Calendar', 'Notes',];
         return header.map((key, index) => {
             return <StyledTableCell style={{ fontWeight: 'bold', fontSize: 18 }}>{key}</StyledTableCell>
         })
 
     }
-    const handleClick = (e) => {
-        setIsDisable(true);
-        // setTimeout(() => {
-        //     console.log("clicked")
-        // }, 3000);
-        try {
-            // showTables();
-        } catch (err) {
-            // setErr(err.message);
-        } finally {
-            // setIsLoading(false);
-            setIsDisable(false);
 
-        }
-    };
-
-    const [SMS, setSMS] = useState('');
     const [FirstN, setFirstN] = useState('');
     const [LastN, setLastN] = useState('');
     const [DateTime, setDateTime] = useState('');
     const [Type, setType] = useState('');
-    const [Location, setLocation] = useState('');
     const [Notes, setNotes] = useState('');
     const [Phone, setPhone] = useState('');
     const [Email, setEmail] = useState('');
-    const [Paid, setPaid] = useState('');
-    const [PaidInCar, setPaidInCar] = useState('');
     const [Calendar, setCalendar] = useState('');
-    const [CPage, setCPage] = useState('');
+    // const [CPage, setCPage] = useState('');
 
-    const [isDisable, setIsDisable] = useState(true);
 
-    useEffect(() => {
-        if (SMS.length <= 0) {
+    const handleAppointmentClick = () => {
+        try {
+            let date = new Date(DateTime).toLocaleDateString('en-EG') + " "
+            let time = new Date(DateTime).toLocaleTimeString('en-EG', { hour12: true, })
+            console.log(`${FirstN} ${LastN} ${Phone} ${date} ${time} ${Calendar}`)
+
+
+        } catch (err) {
+
+        } finally {
+
+        }
+    }
+
+
+
+    const Head = () => {
+        const [SMS, setSMS] = useState('');
+        const [isDisable, setIsDisable] = useState(true);
+        useEffect(() => {
+            if (SMS.length <= 0) {
+                setIsDisable(true);
+            }
+            else {
+                setIsDisable(false);
+            }
+        }, [SMS]);
+
+        const handleClick = (e) => {
             setIsDisable(true);
-        }
-        else {
-            setIsDisable(false);
-        }
-    }, [SMS]);
+            try {
+
+            } catch (err) {
+
+            } finally {
+
+                setIsDisable(false);
+
+            }
+        };
+        return (
+            <div className="Appointment-search-container">
+                <h4 className="Appointment_heading">Send SMS </h4>
+                <TextareaAutosize minRows={4} style={{ margin: "1rem auto", width: '50%' }} onChange={(e) => {
+                    setSMS(e.target.value)
+                }} label="SMS" />
+
+                <Button style={{ display: 'block', backgroundColor: !isDisable ? "dodgerblue" : null }} disabled={isDisable} variant="contained" onClick={handleClick}>Send</Button>
+            </div>
+        )
+    }
 
     return (
 
-        < div className="Appointment_container Appointment_heading">
-            <h2>Enter Details to send SMS</h2>
+        < div className="Appointment_container ">
+            <Head />
+
+            <h2 className="Appointment_heading">Enter Appointment Details</h2>
             <div>
 
                 <TableContainer sx={{ height: 'auto' }} component={Paper}>
@@ -110,36 +135,29 @@ export default function Appointment() {
                                 <StyledTableCell >
                                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                                         <DateTimePicker
+                                            views={['day', 'hours', 'minutes',]}
                                             label="Date & Time"
                                             value={DateTime}
                                             onChange={(newValue) => {
                                                 setDateTime(newValue);
                                             }}
-                                            renderInput={(params) => <TextField style={{ width: 150 }} {...params} />}
+                                            renderInput={(params) => <TextField select={false} style={{ width: 220 }} {...params} value={DateTime} />}
                                         />
                                     </LocalizationProvider>
                                 </StyledTableCell>
                                 <StyledTableCell> <TextField style={{ width: 150 }} multiline onChange={(e) => { setType(e.target.value) }} label="Type" /></StyledTableCell>
-                                <StyledTableCell> <TextField style={{ width: 120 }} multiline onChange={(e) => { setLocation(e.target.value) }} label="Location" /></StyledTableCell>
-                                <StyledTableCell> <TextField style={{ width: 200 }} multiline onChange={(e) => { setNotes(e.target.value) }} label="Notes" /></StyledTableCell>
-                                <StyledTableCell> <TextField style={{ width: 120 }} multiline onChange={(e) => { setPhone(e.target.value) }} label="Phone" /></StyledTableCell>
                                 <StyledTableCell> <TextField style={{ width: 220 }} multiline onChange={(e) => { setEmail(e.target.value) }} label="Email" /></StyledTableCell>
-                                <StyledTableCell> <TextField style={{ width: 80 }} multiline onChange={(e) => { setPaid(e.target.value) }} label="Paid" /></StyledTableCell>
-                                <StyledTableCell style={{ width: 80 }} > <TextField multiline onChange={(e) => { setPaidInCar(e.target.value) }} label="Amount Paid in Car" /></StyledTableCell>
+                                <StyledTableCell> <TextField style={{ width: 120 }} multiline onChange={(e) => { setPhone(e.target.value) }} label="Phone" /></StyledTableCell>
                                 <StyledTableCell> <TextField style={{ width: 150 }} multiline onChange={(e) => { setCalendar(e.target.value) }} label="Calendar" /></StyledTableCell>
-                                <StyledTableCell style={{ width: 850 }}> <TextField multiline fullWidth={true} onChange={(e) => { setCPage(e.target.value) }} label="Confirmation Page" /></StyledTableCell>
+                                <StyledTableCell> <TextField style={{ width: 280 }} multiline onChange={(e) => { setNotes(e.target.value) }} label="Notes" /></StyledTableCell>
+                                {/* <StyledTableCell style={{ width: 850 }}> <TextField multiline fullWidth={true} onChange={(e) => { setCPage(e.target.value) }} label="Confirmation Page" /></StyledTableCell> */}
 
                             </StyledTableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </div>
-            <div className="Appointment-search-container">
-                <TextareaAutosize minRows={3} style={{ margin: "1rem auto", width: '60%' }} onChange={(e) => {
-                    setSMS(e.target.value)
-                }} label="SMS" />
+                <Button style={{ margin: '2rem 0', padding: '1rem', backgroundColor: "dodgerblue" }} variant="contained" onClick={handleAppointmentClick}>Submit</Button>
 
-                <Button style={{ display: 'block', margin: "0rem auto" }} disabled={isDisable} variant="contained" onClick={handleClick}>Submit</Button>
             </div>
 
         </div >
