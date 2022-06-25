@@ -84,7 +84,7 @@ function App() {
     <div >
       {console.log("Not cool")}
       <div className="App-header">
-        <h1 > Enter Phone No to Get Relevant Data </h1>
+        <h1 > Enter2 Phone No to Get Relevant Data </h1>
       </div>
       <div className="App-search-container">
         <Header />
