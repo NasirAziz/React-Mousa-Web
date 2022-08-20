@@ -1,7 +1,10 @@
 import React, { useState } from "react"
-
 import { Button, TextField, Alert, AlertTitle } from '@mui/material';
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import './App.css'
 import AirTable from "./components/Table/AirTable";
@@ -9,19 +12,21 @@ import AcuityTable from "./components/Table/AcuityTable";
 import TextlineTable from "./components/Table/TextlineTable";
 import Appointment from "./pages/Appointment";
 
+
 function App() {
 
   const [data, setData] = useState({ Airtable: [], Acuity: [], Textline: [] });
   const [err, setErr] = useState(false);
-
+      const [age, setAge] = useState('');
 
   const Header = () => {
 
     const [phone, setPhone] = useState('');
     const handlePhoneChange = (e) => { setPhone(e.target.value) }
     const [isDisable, setIsDisable] = useState(false);
+ 
 
-    const handleClick = async (e) => {
+    const handleSubmitClick = async (e) => {
       setIsDisable(true);
       try {
         // change this string/text and press Ctrl + S to save the file and then press Ctrl + ` to open the terminal 3478131929
@@ -71,20 +76,42 @@ function App() {
 
     }
 
+
     return (
       <>
         <TextField value={phone} onChange={handlePhoneChange} style={{ width: '90%' }} label="123-123-123" />
-        <Button style={{ marginLeft: '1rem' }} className="App-Button" disabled={isDisable} variant="contained" onClick={handleClick}>Submit</Button>
+        <Button style={{ marginLeft: '1rem' }} className="App-Button" disabled={isDisable} variant="contained" onClick={handleSubmitClick}>Submit</Button>
       </>
 
     );
   }
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
   return (
     <div >
-      {console.log("Not cool")}
+
       <div className="App-header">
-        <h1 > Enter2 Phone No to Get Relevant Data </h1>
+        <h1 > Enter Phone No to Get Relevant Data </h1>           
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={age}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+        <FormHelperText>With label + helper text</FormHelperText>
+      </FormControl>
       </div>
       <div className="App-search-container">
         <Header />
