@@ -120,7 +120,7 @@ const IndeterminateCheckbox = React.forwardRef(
 
 function TableComponent({ columns, data }) {
   const [cellValue, setCellValue] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
   const defaultColumn = React.useMemo(
     () => ({
       // When using the useFlexLayout:
@@ -213,8 +213,8 @@ function TableComponent({ columns, data }) {
           return (
             <div {...row.getRowProps()} className="tr" onClick={()=> {
               debugger;
-              alert("asd");
-              modalOpen && <Popup setOpenModal={setModalOpen} />
+              setModalOpen(true);
+              
             }
               }>
               {row.cells.map(cell => {
@@ -228,6 +228,7 @@ function TableComponent({ columns, data }) {
           )
         })}
       </div>
+     { modalOpen && <Popup setOpenModal={setModalOpen} />}
     </div>
   )
 }
