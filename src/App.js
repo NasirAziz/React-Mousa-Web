@@ -269,8 +269,7 @@ function App() {
 
   return (
     <div >
-    {localStorage.setItem("lastname", "Smith")}
-    {console.log(localStorage.getItem("lastname"))}
+   
       <div className="App-header">
         <h1 > Enter Phone No to Get Relevant Data </h1>
         <FormControl sx={{ m: 1, minWidth: 120 }}>

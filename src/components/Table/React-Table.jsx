@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import Popup from '../Popup'
 import {
   useTable,
   useResizeColumns,
   useFlexLayout,
   useRowSelect,
 } from 'react-table'
+
 
     function formatDate(string) {
         //var options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -85,6 +87,7 @@ const Styles = styled.div`
 
 const headerProps = (props, { column }) => getStyles(props, column.align)
 
+
 const cellProps = (props, { cell }) => getStyles(props, cell.column.align)
 
 const getStyles = (props, align = 'left') => [
@@ -116,6 +119,8 @@ const IndeterminateCheckbox = React.forwardRef(
 )
 
 function TableComponent({ columns, data }) {
+  const [cellValue, setCellValue] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
   const defaultColumn = React.useMemo(
     () => ({
       // When using the useFlexLayout:
@@ -125,6 +130,10 @@ function TableComponent({ columns, data }) {
     }),
     []
   )
+  const getCellValue = (cell) =>{
+    setCellValue(cell.value)
+    console.log(cell.value)
+  }
 
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
     {
@@ -173,15 +182,16 @@ function TableComponent({ columns, data }) {
     <div {...getTableProps()} className="table">
       <div>
         {headerGroups.map(headerGroup => (
-          <div
+          <div onClick={() => getCellValue(headerGroup.headers[0])} {...headerGroup.getHeaderGroupProps()}
             {...headerGroup.getHeaderGroupProps({
               // style: { paddingRight: '15px' },
             })}
             className="tr"
           >
             {headerGroup.headers.map(column => (
-              <div {...column.getHeaderProps(headerProps)} className="th">
+              <div {...column.getHeaderProps(headerProps)} className="th" >
                 {column.render('Header')}
+                
                 {/* Use column.getResizerProps to hook up the events correctly */}
                 {column.canResize && (
                   <div
@@ -201,7 +211,12 @@ function TableComponent({ columns, data }) {
         {rows.map(row => {
           prepareRow(row)
           return (
-            <div {...row.getRowProps()} className="tr">
+            <div {...row.getRowProps()} className="tr" onClick={()=> {
+              debugger;
+              alert("asd");
+              modalOpen && <Popup setOpenModal={setModalOpen} />
+            }
+              }>
               {row.cells.map(cell => {
                 return (
                   <div {...cell.getCellProps(cellProps)} className="td">
