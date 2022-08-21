@@ -16,7 +16,6 @@ import {
         console.log("React Table "+date + "\n" + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length))
         return date + "\n" + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length);
     }
-
 const Styles = styled.div`
   padding: 1rem;
   ${'' /* These styles are suggested for the table fill all available space in its containing element */}
@@ -27,7 +26,7 @@ const Styles = styled.div`
   .table {
     border-spacing: 0;
     border: 1px solid black;
-    width: 100%;
+    width: 200%;
 
     .thead {
       ${'' /* These styles are required for a scrollable body to align with the header properly */}
@@ -122,7 +121,7 @@ function TableComponent({ columns, data }) {
       // When using the useFlexLayout:
       minWidth: 30, // minWidth is only used as a limit for resizing
       width: 150, // width is used for both the flex-basis and flex-grow
-      maxWidth: 200, // maxWidth is only used as a limit for resizing
+      maxWidth: 500, // maxWidth is only used as a limit for resizing
     }),
     []
   )
@@ -221,11 +220,12 @@ function TableComponent({ columns, data }) {
 function Table({data,columns,tableName}) {
 
   return (
-    <div onLoadStart={()=>tableName==="TextLine"? data.map(el =>  (el.Timestamp=formatDate(el.Timestamp))) : tableName==="Acuity"? data.map(el =>  (el.Timestamp=formatDate(el.DateTime))) : null}>   
+    <div >
     <Styles>
       <TableComponent columns={columns} data={data} />
     </Styles>
     </div>
+    
   )
 }
 
