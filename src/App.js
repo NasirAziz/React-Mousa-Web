@@ -1,19 +1,151 @@
+
 import React, { useState } from "react"
 import { Button, TextField, Alert, AlertTitle } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 
 import './App.css'
-import AirTable from "./components/Table/AirTable";
-import AcuityTable from "./components/Table/AcuityTable";
-import TextlineTable from "./components/Table/TextlineTable";
 import Appointment from "./pages/Appointment";
+import Table from "./components/Table/React-Table";
 
 
 function App() {
+    const columnsTextLine = React.useMemo(
+    () => [
+
+          {
+            Header: 'Name',
+            accessor: 'Name',
+            width: 50,
+          },
+          {
+            Header: 'Message',
+            accessor: 'Message',
+            width: 150,
+          },
+          {
+            Header: 'Timestamp',
+            accessor: 'Timestamp',
+            width: 100,
+          },
+
+    ],
+    []
+  )
+      const columnsAcuity = React.useMemo(
+    () => [
+
+          {
+            Header: 'First Name',
+            accessor: 'First Name',
+          },
+          {
+            Header: 'Last Name',
+            accessor: 'Last Name',
+          },
+          {
+            Header: 'Date Time',
+            accessor: 'Date Time',
+          },          {
+            Header: 'Type',
+            accessor: 'Type',
+          },
+          {
+            Header: 'Location',
+            accessor: 'Location',
+          },
+          {
+            Header: 'Notes',
+            accessor: 'Notes',
+          },          {
+            Header: 'Phone',
+            accessor: 'Phone',
+          },
+          {
+            Header: 'Email',
+            accessor: 'Email',
+          },
+          {
+            Header: 'Amount Paid in Car',
+            accessor: 'Amount Paid in Car',
+          },          {
+            Header: 'Calendar',
+            accessor: 'Calendar',
+          },
+          {
+            Header: 'Confirmation Page',
+            accessor: 'Confirmation Page',
+          },
+
+
+    ],
+    []
+  )
+      const columnsAirTable = React.useMemo(
+    () => [
+
+          {
+            Header: 'First Name',
+            accessor: 'First Name',
+          },
+          {
+            Header: 'Last Name',
+            accessor: 'Last Name',
+          },
+          {
+            Header: 'Date',
+            accessor: 'Date',
+          },          
+          {
+            Header: 'Tier',
+            accessor: 'Tier',
+          },
+          {
+            Header: 'Booking Status',
+            accessor: 'Booking Status',
+          },
+          {
+            Header: 'Phone Number',
+            accessor: 'Phone Number',
+          },          
+          {
+            Header: 'Test Date',
+            accessor: 'Test Date',
+          },
+          {
+            Header: 'Test Time',
+            accessor: 'Test Time',
+          },
+          {
+            Header: 'Test Location',
+            accessor: 'Test Location',
+          },          
+          {
+            Header: 'Notification Status',
+            accessor: 'Notification Status',
+          },
+          {
+            Header: 'Notes',
+            accessor: 'Notes',
+          },
+          {
+            Header: 'Will you be needing one of our cars to take you to your test',
+            accessor: 'Will you be needing one of our cars to take you to your test',
+          },          
+          {
+            Header: 'Permit Number',
+            accessor: 'Permit Number',
+          },          {
+            Header: 'Date Of Birth',
+            accessor: 'Date Of Birth',
+          },
+
+    ],
+    []
+  )
 
   const [data, setData] = useState({ Airtable: [], Acuity: [], Textline: [] });
   const [err, setErr] = useState(false);
@@ -125,24 +257,22 @@ function App() {
       {<>
         <h2 id="toShow" className="toShow tb-header">ACUITY </h2>
         <div id="toShow1" className="tb-table-container toShow">
-          <AcuityTable data={data.Acuity} />
+          <Table tableName={"Acuity"} data={data.Acuity} columns={columnsAcuity} />
         </div>
 
         <h2 id="toShow2" className="toShow tb-header">TEXT LINE </h2>
         <div id="toShow3" className="tb-table-container toShow">
-          <TextlineTable data={data.Textline} />
+          <Table tableName={"TextLine"} data={data.Textline} columns={columnsTextLine} />
         </div>
 
         <h2 id="toShow4" className="toShow tb-header">AIR-TABLE </h2>
         <div id="toShow5" className="tb-table-container toShow">
-          <AirTable data={data.Airtable} />
+          {/* <Table data={data.Airtable} columns={columnsAirTable} /> */}
         </div>
         <div id="toShow6" className="toShow">
           <Appointment />
         </div>
       </>}
-
-
 
     </div >
   )
