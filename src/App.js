@@ -9,20 +9,21 @@ import Table from "./components/Table/React-Table";
 
 function App() {
 
-  const [suggestions, setSuggestions] = useState([]);
+  // const [suggestions, setSuggestions] = useState([]);
 
-  const getSuggestions = async () => {
+  // const getSuggestions = async (phone) => {
 
-    const options2 = await fetch('http://localhost:3001')
-    if (options2.ok) {
-      options2.json().then((value) => {
-        setSuggestions([...value])
-        console.log(suggestions)
-      })
-    }
-  }
+  //   const options2 = await fetch(`http://localhost:4000/suggest?key=${phone}`)
+  //   if (options2.ok) {
+  //     debugger;
+  //     options2.json().then((value) => {
+  //       setSuggestions([...value])
+  //       console.log(suggestions)
+  //     })
+  //   }
+  // }
 
-  React.useEffect(() => { getSuggestions() }, [])
+  // React.useEffect(() => { getSuggestions() }, [])
 
   // getSuggestions()
 
@@ -31,9 +32,31 @@ function App() {
   const [err, setErr] = useState(false);
   const [array, setArray] = useState([]);
   const Header = () => {
-
+    const [suggestions, setSuggestions] = useState([]);
     const [phoneOrEmail, setPhoneOrEmail] = useState('');
-    const handlePhoneChange = (e) => { setPhoneOrEmail(e.target.value) }
+
+  const getSuggestions = async (phone) => {
+
+    const options2 = await fetch(`http://localhost:4000/suggest?key=${phone}`)
+    if (options2.ok) {
+      debugger;
+      options2.json().then((value) => {
+        setSuggestions([...value])
+        console.log(suggestions)
+      })
+    }
+  }
+    const handlePhoneChange = (e) => { 
+     
+      debugger;
+      // setPhoneOrEmail(e.target.value) 
+      if (e.target.value.length >1){
+        getSuggestions(e.target.value) 
+      }
+      
+       
+
+    }
     const [isDisable, setIsDisable] = useState(false);
 
     function formatDate(string) {
@@ -49,6 +72,7 @@ function App() {
       console.log("Phone " + phoneOrEmail)
       setIsDisable(true);
       try {
+        debugger;
         // change this string/text and press Ctrl + S to save the file and then press Ctrl + ` to open the terminal 3478131929
         const response = await fetch('https://hook.us1.make.com/der2itrt38fuk2rsmpclth7qohnaivj1?phone=' + phoneOrEmail.trim());
 
