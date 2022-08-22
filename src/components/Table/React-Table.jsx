@@ -89,8 +89,9 @@ const getStyles = (props, align = 'left') => [
 ]
 
 function TableComponent({ columns, data }) {
-  const [cellValue, setCellValue] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
+  const [cellValue, setCellValue] = useState('');
+  const [ConfirmationPage, setConfirmationPage] = useState('')
   const defaultColumn = React.useMemo(
     () => ({
       // When using the useFlexLayout:
@@ -100,10 +101,14 @@ function TableComponent({ columns, data }) {
     }),
     []
   )
-  const getCellValue = (cell) => {
-    setCellValue(cell.value)
-    console.log(cell.value)
-  }
+  const getCellValue = (e, j) => {   
+    if (e.column.Header == 'Confirmation Page') {
+      setConfirmationPage(e.value)
+      setModalOpen(true)
+
+    }
+
+  };
 
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
     {
@@ -165,7 +170,7 @@ function TableComponent({ columns, data }) {
           )
         })}
       </div>
-      {modalOpen && <Popup setOpenModal={setModalOpen} />}
+      {modalOpen && <Popup setOpenModal={setModalOpen} url={ConfirmationPage} />}
     </div>
   )
 }
