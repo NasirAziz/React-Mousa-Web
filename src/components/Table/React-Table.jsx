@@ -88,26 +88,9 @@ const getStyles = (props, align = 'left') => [
   },
 ]
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
-    const resolvedRef = ref || defaultRef
-
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate
-    }, [resolvedRef, indeterminate])
-
-    return (
-      <>
-        <span ref={resolvedRef} {...rest} >X</span>
-      </>
-    )
-  }
-)
-
 function TableComponent({ columns, data }) {
   const [cellValue, setCellValue] = useState('');
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const defaultColumn = React.useMemo(
     () => ({
       // When using the useFlexLayout:
@@ -165,12 +148,11 @@ function TableComponent({ columns, data }) {
         {rows.map((row, cell, j) => {
           prepareRow(row)
           return (
-            <div {...row.getRowProps()} className="tr" onClick={() => {
-              debugger;
-              setModalOpen(true);
-
-            }
-            }>
+            <div {...row.getRowProps()} className="tr"
+            // onClick={() => {
+            //   setModalOpen(true);
+            // }}
+            >
               {row.cells.map(cell => {
 
                 return (
@@ -197,7 +179,7 @@ function Table({ data, columns, tableName }) {
       setData2(data)
   });
 
-  const columnsAcuity = React.useMemo(
+  const newColumns = React.useMemo(
     () => [
       {
         header: 'Delete',
@@ -226,7 +208,7 @@ function Table({ data, columns, tableName }) {
   return (
     <div >
       <Styles>
-        <TableComponent columns={columns} data={data} />
+        <TableComponent columns={newColumns} data={data2} />
       </Styles>
     </div>
 
