@@ -5,7 +5,6 @@ import {
   useTable,
   useResizeColumns,
   useFlexLayout,
-  useRowSelect,
 } from 'react-table'
 
 const Styles = styled.div`
@@ -74,9 +73,7 @@ const Styles = styled.div`
     }
   }
 `
-
 const headerProps = (props, { column }) => getStyles(props, column.align)
-
 
 const cellProps = (props, { cell }) => getStyles(props, cell.column.align)
 
@@ -102,7 +99,7 @@ const IndeterminateCheckbox = React.forwardRef(
 
     return (
       <>
-        <input type="checkbox" ref={resolvedRef} {...rest} />
+        <span ref={resolvedRef} {...rest} >X</span>
       </>
     )
   }
@@ -110,62 +107,30 @@ const IndeterminateCheckbox = React.forwardRef(
 
 function TableComponent({ columns, data }) {
   const [cellValue, setCellValue] = useState('');
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const defaultColumn = React.useMemo(
     () => ({
       // When using the useFlexLayout:
-      minWidth: 30, // minWidth is only used as a limit for resizing
-      width: 150, // width is used for both the flex-basis and flex-grow
+      minWidth: 15, // minWidth is only used as a limit for resizing
+      // width: 150, // width is used for both the flex-basis and flex-grow
       maxWidth: 500, // maxWidth is only used as a limit for resizing
     }),
     []
   )
-  const getCellValue = (cell) =>{
+  const getCellValue = (cell) => {
     setCellValue(cell.value)
     console.log(cell.value)
   }
 
-  const { getTableProps, headerGroups, rows, prepareRow } = useTable(
+  const { getTableProps, headerGroups, rows, prepareRow, useRowState } = useTable(
     {
       columns,
       data,
-      defaultColumn,
+      // defaultColumn,
     },
     useResizeColumns,
     useFlexLayout,
-    useRowSelect,
-    hooks => {
-      hooks.allColumns.push(columns => [
-        // Let's make a column for selection
-        {
-          id: 'selection',
-          disableResizing: true,
-          minWidth: 35,
-          width: 35,
-          maxWidth: 35,
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...columns,
-      ])
-      hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
-        // fix the parent group of the selection button to not be resizable
-        const selectionGroupHeader = headerGroups[0].headers[0]
-        selectionGroupHeader.canResize = false
-      })
-    }
+    // useRowState,
   )
 
   return (
@@ -181,14 +146,13 @@ function TableComponent({ columns, data }) {
             {headerGroup.headers.map(column => (
               <div {...column.getHeaderProps(headerProps)} className="th" >
                 {column.render('Header')}
-                
+
                 {/* Use column.getResizerProps to hook up the events correctly */}
                 {column.canResize && (
                   <div
                     {...column.getResizerProps()}
-                    className={`resizer ${
-                      column.isResizing ? 'isResizing' : ''
-                    }`}
+                    className={`resizer ${column.isResizing ? 'isResizing' : ''
+                      }`}
                   />
                 )}
               </div>
@@ -201,12 +165,11 @@ function TableComponent({ columns, data }) {
         {rows.map(row => {
           prepareRow(row)
           return (
-            <div {...row.getRowProps()} className="tr" onClick={()=> {
-              debugger;
+            <div {...row.getRowProps()} className="tr" onClick={() => {
               setModalOpen(true);
-              
+
             }
-              }>
+            }>
               {row.cells.map(cell => {
                 return (
                   <div {...cell.getCellProps(cellProps)} className="td">
@@ -218,21 +181,56 @@ function TableComponent({ columns, data }) {
           )
         })}
       </div>
-     { modalOpen && <Popup setOpenModal={setModalOpen} />}
+      {modalOpen && <Popup setOpenModal={setModalOpen} />}
     </div>
   )
 }
 
-function Table({data,columns,tableName}) {
+function Table({ data, columns, tableName }) {
 
+  const [data2, setData2] = useState([]);
+
+  React.useEffect(() => {
+    if (data2.length === 0)
+      setData2(data)
+  });
+
+  const columnsAcuity = React.useMemo(
+    () => [
+      {
+        header: 'Delete',
+        accessor: 'delete',
+        width: tableName === "Textline" ? 1 : 15,
+        Cell: ({ row }) => (
+          <div onClick={() => {
+            const dataCopy = [...data2]
+            dataCopy.splice(row.index, 1)
+            setData2([...dataCopy])
+          }
+          }>
+            X
+          </div>
+        ),
+      },
+      ...columns
+
+
+    ],
+    [data2]
+  )
+  console.log((data2.length))
+
+  console.log([...data2])
   return (
     <div >
-    <Styles>
-      <TableComponent columns={columns} data={data} />
-    </Styles>
+      <Styles>
+        <TableComponent columns={columnsAcuity} data={data2} />
+      </Styles>
     </div>
-    
+
   )
+
+
 }
 
 export default Table
