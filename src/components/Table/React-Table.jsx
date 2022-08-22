@@ -109,7 +109,7 @@ const IndeterminateCheckbox = React.forwardRef(
 )
 
 function TableComponent({ columns, data }) {
-  const [cellValue, setCellValue] = useState('');
+  const [ConfirmationPage, setConfirmationPage] = useState('')
   const [modalOpen, setModalOpen] = useState(true);
   const defaultColumn = React.useMemo(
     () => ({
@@ -120,10 +120,15 @@ function TableComponent({ columns, data }) {
     }),
     []
   )
-  const getCellValue = (cell) =>{
-    setCellValue(cell.value)
-    console.log(cell.value)
-  }
+
+  const getCellValue = (e, j) => {   
+    if (e.column.Header == 'Confirmation Page') {
+      setConfirmationPage(e.value)
+      setModalOpen(true)
+
+    }
+
+  };
 
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
     {
@@ -181,14 +186,13 @@ function TableComponent({ columns, data }) {
             {headerGroup.headers.map(column => (
               <div {...column.getHeaderProps(headerProps)} className="th" >
                 {column.render('Header')}
-                
+
                 {/* Use column.getResizerProps to hook up the events correctly */}
                 {column.canResize && (
                   <div
                     {...column.getResizerProps()}
-                    className={`resizer ${
-                      column.isResizing ? 'isResizing' : ''
-                    }`}
+                    className={`resizer ${column.isResizing ? 'isResizing' : ''
+                      }`}
                   />
                 )}
               </div>
@@ -198,18 +202,14 @@ function TableComponent({ columns, data }) {
       </div>
 
       <div className="tbody">
-        {rows.map(row => {
+        {rows.map((row, cell, j) => {
           prepareRow(row)
           return (
-            <div {...row.getRowProps()} className="tr" onClick={()=> {
-              debugger;
-              setModalOpen(true);
-              
-            }
-              }>
+            <div {...row.getRowProps()} className="tr" >
               {row.cells.map(cell => {
+
                 return (
-                  <div {...cell.getCellProps(cellProps)} className="td">
+                  <div {...cell.getCellProps(cellProps)} className="td" onClick={() => getCellValue(cell, j)}>
                     {cell.render('Cell')}
                   </div>
                 )
@@ -218,20 +218,21 @@ function TableComponent({ columns, data }) {
           )
         })}
       </div>
-     { modalOpen && <Popup setOpenModal={setModalOpen} />}
+      {console.log("w", ConfirmationPage)}
+      {modalOpen && <Popup setOpenModal={setModalOpen} url={ConfirmationPage} />}
     </div>
   )
 }
 
-function Table({data,columns,tableName}) {
+function Table({ data, columns, tableName }) {
 
   return (
     <div >
-    <Styles>
-      <TableComponent columns={columns} data={data} />
-    </Styles>
+      <Styles>
+        <TableComponent columns={columns} data={data} />
+      </Styles>
     </div>
-    
+
   )
 }
 
