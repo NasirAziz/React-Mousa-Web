@@ -1,40 +1,31 @@
 import React from "react";
 import "./Popup.css";
 
-function Popup({ setOpenModal }) {
+function Popup(props ) {
   return (
     <div className="modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
           <button
             onClick={() => {
-              setOpenModal(false);
+              // setOpenModal(false);
+              props.setOpenModal(false);
             }}
           >
             X
           </button>
         </div>
+        {console.log("pp"+props.url)}
         {/* <div className="title">
           <h1>Are You Sure You Want to Continue?</h1>
         </div> */}
-        <iframe src="https://app.acuityscheduling.com/schedule.php?owner=11325084&action=appt&id%5B%5D=96807e46fd2c98bda3f667ea1df2bfa2
-"></iframe>
+        <iframe src={props.url} width="500" height="500" ></iframe>
         <div>
         </div>
         {/* <div className="body">
           <p>The next page looks amazing. Hope you want to go there!</p>
         </div> */}
-        <div className="footer">
-          <button
-            onClick={() => {
-              setOpenModal(false);
-            }}
-            id="cancelBtn"
-          >
-            Cancel
-          </button>
-          <button>Continue</button>
-        </div>
+       
       </div>
     </div>
   );

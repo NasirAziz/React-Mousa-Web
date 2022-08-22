@@ -107,7 +107,7 @@ const IndeterminateCheckbox = React.forwardRef(
 
 function TableComponent({ columns, data }) {
   const [cellValue, setCellValue] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
   const defaultColumn = React.useMemo(
     () => ({
       // When using the useFlexLayout:
@@ -122,7 +122,7 @@ function TableComponent({ columns, data }) {
     console.log(cell.value)
   }
 
-  const { getTableProps, headerGroups, rows, prepareRow, useRowState } = useTable(
+  const { getTableProps, headerGroups, rows, prepareRow } = useTable(
     {
       columns,
       data,
@@ -162,17 +162,19 @@ function TableComponent({ columns, data }) {
       </div>
 
       <div className="tbody">
-        {rows.map(row => {
+        {rows.map((row, cell, j) => {
           prepareRow(row)
           return (
             <div {...row.getRowProps()} className="tr" onClick={() => {
+              debugger;
               setModalOpen(true);
 
             }
             }>
               {row.cells.map(cell => {
+
                 return (
-                  <div {...cell.getCellProps(cellProps)} className="td">
+                  <div {...cell.getCellProps(cellProps)} className="td" onClick={() => getCellValue(cell, j)}>
                     {cell.render('Cell')}
                   </div>
                 )
@@ -224,7 +226,7 @@ function Table({ data, columns, tableName }) {
   return (
     <div >
       <Styles>
-        <TableComponent columns={columnsAcuity} data={data2} />
+        <TableComponent columns={columns} data={data} />
       </Styles>
     </div>
 
