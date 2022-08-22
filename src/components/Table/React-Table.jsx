@@ -8,16 +8,6 @@ import {
   useRowSelect,
 } from 'react-table'
 
-
-    function formatDate(string) {
-        //var options = { year: 'numeric', month: 'long', day: 'numeric' };
-        let date = new Date(string.substring(0, 10)).toLocaleDateString('en-US') + " "
-        let time = new Date(string.substring(0, 10) + " " + string.substring(11, 18)).toLocaleTimeString('en-US', { hour12: true })
-        // console.log("TextLine " + string)
-
-        console.log("React Table "+date + "\n" + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length))
-        return date + "\n" + time.substring(0, time.length - 6) + time.substring(time.length - 3, time.length);
-    }
 const Styles = styled.div`
   padding: 1rem;
   ${'' /* These styles are suggested for the table fill all available space in its containing element */}
