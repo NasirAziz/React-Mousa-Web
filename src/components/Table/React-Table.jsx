@@ -101,7 +101,7 @@ function TableComponent({ columns, data }) {
     }),
     []
   )
-  const getCellValue = (e, j) => {   
+  const getCellValue = (e, j) => {
     if (e.column.Header == 'Confirmation Page') {
       setConfirmationPage(e.value)
       setModalOpen(true)
@@ -207,9 +207,7 @@ function Table({ data, columns, tableName }) {
     ],
     [data2]
   )
-  console.log((data2.length))
 
-  console.log([...data2])
   return (
     <div >
       <Styles>

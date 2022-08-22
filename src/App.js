@@ -1,145 +1,31 @@
 
 import React, { useState } from "react"
 import { Button, TextField, Alert, AlertTitle, Autocomplete, Box } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 
 import './App.css'
 import Appointment from "./pages/Appointment";
 import Table from "./components/Table/React-Table";
-import Popup from './components/Popup'
+
 
 function App() {
 
-  const columnsAcuity = [
+  const [suggestions, setSuggestions] = useState([]);
 
-    {
-      Header: 'First Name',
-      accessor: 'First Name',
+  const getSuggestions = async () => {
+    debugger
+    const options2 = await fetch('http://localhost:3001')
+    if (options2.ok) {
+      options2.json().then((value) => {
+        setSuggestions([...value])
+        console.log(suggestions)
+      })
+    }
+  }
 
-    },
-    {
-      Header: 'Last Name',
-      accessor: 'Last Name',
-    },
-    {
-      Header: 'Date Time',
-      accessor: 'DateTime',
-    }, {
-      Header: 'Type',
-      accessor: 'Type',
-    },
-    {
-      Header: 'Location',
-      accessor: 'Location',
-    },
-    {
-      Header: 'Notes',
-      accessor: 'Notes',
-    }, {
-      Header: 'Phone',
-      accessor: 'Phone',
-    },
-    {
-      Header: 'Email',
-      accessor: 'Email',
-    },
-    {
-      Header: 'Amount Paid in Car',
-      accessor: 'Amount Paid in Car',
-    }, {
-      Header: 'Calendar',
-      accessor: 'Calendar',
-    },
-    {
-      Header: 'Confirmation Page',
-      accessor: 'Confirmation page',
-    },
+  React.useEffect(() => { getSuggestions() }, [])
 
-  ]
+  // getSuggestions()
 
-  const columnsTextLine = [
-
-    {
-      Header: 'Name',
-      accessor: 'Name',
-      width: 15,
-    },
-    {
-      Header: 'Message',
-      accessor: 'Message',
-      width: 150,
-    },
-    {
-      Header: 'Timestamp',
-      accessor: 'Timestamp',
-      width: 100,
-    },
-
-  ]
-
-  const columnsAirTable = [
-
-    {
-      Header: 'First Name',
-      accessor: 'First Name',
-    },
-    {
-      Header: 'Last Name',
-      accessor: 'Last Name',
-    },
-    {
-      Header: 'Date',
-      accessor: 'Date',
-    },
-    {
-      Header: 'Tier',
-      accessor: 'Tier',
-    },
-    {
-      Header: 'Booking Status',
-      accessor: 'Booking Status',
-    },
-    {
-      Header: 'Phone Number',
-      accessor: 'Phone Number',
-    },
-    {
-      Header: 'Test Date',
-      accessor: 'Test Date',
-    },
-    {
-      Header: 'Test Time',
-      accessor: 'Test Time',
-    },
-    {
-      Header: 'Test Location',
-      accessor: 'Test Location',
-    },
-    {
-      Header: 'Notification Status',
-      accessor: 'Notification Status',
-    },
-    {
-      Header: 'Notes',
-      accessor: 'Notes',
-    },
-    {
-      Header: 'Will you be needing one of our cars to take you to your test',
-      accessor: 'Will you be needing one of our cars to take you to your test',
-    },
-    {
-      Header: 'Permit Number',
-      accessor: 'Permit Number',
-    }, {
-      Header: 'Date Of Birth',
-      accessor: 'Date Of Birth',
-    },
-
-  ]
 
   const [data, setData] = useState({ Airtable: [], Acuity: [], Textline: [] });
   const [err, setErr] = useState(false);
@@ -159,6 +45,7 @@ function App() {
     }
 
     const handleSubmitClick = async (e) => {
+
       console.log("Phone " + phoneOrEmail)
       setIsDisable(true);
       try {
@@ -662,14 +549,14 @@ function App() {
         <Autocomplete
           // id="country-select-demo"
           sx={{ width: "80%" }}
-          options={countries}
+          options={suggestions}
           autoHighlight
-          getOptionLabel={(option) => option.label}
-          isOptionEqualToValue={(option, value) => option.code === value.code}
+          getOptionLabel={(option) => option.phone}
+          isOptionEqualToValue={(option, value) => option.phone === value.phone}
 
           renderOption={(props, option) => (
-            <Box component="li" {...props}>
-              {option.label} ({option.code}) +{option.phone}
+            <Box component="li" key={option.email} {...props}>
+              {option.first_name} ({option.email}) {option.phone}
             </Box>
           )}
           renderInput={(params) => (
@@ -730,4 +617,132 @@ function App() {
     </div >
   )
 }
+
+const columnsAcuity = [
+
+  {
+    Header: 'First Name',
+    accessor: 'First Name',
+
+  },
+  {
+    Header: 'Last Name',
+    accessor: 'Last Name',
+  },
+  {
+    Header: 'Date Time',
+    accessor: 'DateTime',
+  }, {
+    Header: 'Type',
+    accessor: 'Type',
+  },
+  {
+    Header: 'Location',
+    accessor: 'Location',
+  },
+  {
+    Header: 'Notes',
+    accessor: 'Notes',
+  }, {
+    Header: 'Phone',
+    accessor: 'Phone',
+  },
+  {
+    Header: 'Email',
+    accessor: 'Email',
+  },
+  {
+    Header: 'Amount Paid in Car',
+    accessor: 'Amount Paid in Car',
+  }, {
+    Header: 'Calendar',
+    accessor: 'Calendar',
+  },
+  {
+    Header: 'Confirmation Page',
+    accessor: 'Confirmation page',
+  },
+
+]
+
+const columnsTextLine = [
+
+  {
+    Header: 'Name',
+    accessor: 'Name',
+    width: 15,
+  },
+  {
+    Header: 'Message',
+    accessor: 'Message',
+    width: 150,
+  },
+  {
+    Header: 'Timestamp',
+    accessor: 'Timestamp',
+    width: 100,
+  },
+
+]
+
+const columnsAirTable = [
+
+  {
+    Header: 'First Name',
+    accessor: 'First Name',
+  },
+  {
+    Header: 'Last Name',
+    accessor: 'Last Name',
+  },
+  {
+    Header: 'Date',
+    accessor: 'Date',
+  },
+  {
+    Header: 'Tier',
+    accessor: 'Tier',
+  },
+  {
+    Header: 'Booking Status',
+    accessor: 'Booking Status',
+  },
+  {
+    Header: 'Phone Number',
+    accessor: 'Phone Number',
+  },
+  {
+    Header: 'Test Date',
+    accessor: 'Test Date',
+  },
+  {
+    Header: 'Test Time',
+    accessor: 'Test Time',
+  },
+  {
+    Header: 'Test Location',
+    accessor: 'Test Location',
+  },
+  {
+    Header: 'Notification Status',
+    accessor: 'Notification Status',
+  },
+  {
+    Header: 'Notes',
+    accessor: 'Notes',
+  },
+  {
+    Header: 'Will you be needing one of our cars to take you to your test',
+    accessor: 'Will you be needing one of our cars to take you to your test',
+  },
+  {
+    Header: 'Permit Number',
+    accessor: 'Permit Number',
+  }, {
+    Header: 'Date Of Birth',
+    accessor: 'Date Of Birth',
+  },
+
+]
+
 export default App;
