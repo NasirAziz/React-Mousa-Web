@@ -258,6 +258,11 @@ const columnsTextLine = [
     Header: 'Timestamp',
     accessor: 'Timestamp',
     width: 20,
+  },
+  {
+    Header: 'conversation_link',
+    accessor: 'conversation_link',
+    width: 20,
   }
 
 ]
