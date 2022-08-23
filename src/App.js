@@ -1,6 +1,7 @@
 
 import React, { useState } from "react"
-import { Button, TextField, Alert, AlertTitle, Autocomplete, Box } from '@mui/material';
+import { Button, TextField, Alert, AlertTitle, Autocomplete, createFilterOptions, Box } from '@mui/material';
+import AutoCompleteVirtualize from "./components/AutoComplete";
 
 import './App.css'
 import Appointment from "./pages/Appointment";
@@ -11,14 +12,13 @@ function App() {
 
   // const [suggestions, setSuggestions] = useState([]);
 
-  // const getSuggestions = async (phone) => {
+  // const getSuggestions = async () => {
 
-  //   const options2 = await fetch(`http://localhost:4000/suggest?key=${phone}`)
+  //   const options2 = await fetch(`https://mousa-web-api.herokuapp.com/`)
   //   if (options2.ok) {
-  //     debugger;
   //     options2.json().then((value) => {
-  //       setSuggestions([...value])
-  //       console.log(suggestions)
+  //       setSuggestions(value)
+  //       console.log(suggestions.length)
   //     })
   //   }
   // }
@@ -30,34 +30,36 @@ function App() {
 
   const [data, setData] = useState({ Airtable: [], Acuity: [], Textline: [] });
   const [err, setErr] = useState(false);
-  const [array, setArray] = useState([]);
+
+
   const Header = () => {
     const [suggestions, setSuggestions] = useState([]);
-    const [phoneOrEmail, setPhoneOrEmail] = useState('');
-
-  const getSuggestions = async (phone) => {
-
-    const options2 = await fetch(`http://localhost:4000/suggest?key=${phone}`)
-    if (options2.ok) {
-      debugger;
-      options2.json().then((value) => {
-        setSuggestions([...value])
-        console.log(suggestions)
-      })
-    }
-  }
-    const handlePhoneChange = (e) => { 
-     
-      debugger;
-      // setPhoneOrEmail(e.target.value) 
-      if (e.target.value.length >1){
-        getSuggestions(e.target.value) 
-      }
-      
-       
-
-    }
+    let phoneOrEmail = "";
+    // let suggestions = [];
     const [isDisable, setIsDisable] = useState(false);
+
+    const getSuggestions = async (phone) => {
+
+      const options2 = await fetch(`https://mousa-web-api.herokuapp.com/suggest?key=${phone}`)
+      if (options2.ok) {
+
+        options2.json().then((value) => {
+          setSuggestions(value)
+        })
+      }
+    }
+
+
+    const handlePhoneChange = (e) => {
+      phoneOrEmail = e.target.value
+
+      if (e.target.value.length > 0)
+        getSuggestions(phoneOrEmail)
+
+    }
+    const handlePhoneChange2 = (e, v) => {
+      phoneOrEmail = v.phone
+    }
 
     function formatDate(string) {
 
@@ -69,7 +71,8 @@ function App() {
 
     const handleSubmitClick = async (e) => {
 
-      console.log("Phone " + phoneOrEmail)
+      phoneOrEmail = phoneOrEmail.replace('(', "").replace(')', "").replace('+', "").replace(' ', "").replace('-', "").replace('-', "")
+
       setIsDisable(true);
       try {
         debugger;
@@ -78,10 +81,12 @@ function App() {
 
         if (!response.ok) {
           setErr(true)
+          hideTables();
+          return
         }
-
         response.json().then((value) => {
-          if (value.Airtable.Date == undefined && value.Acuity[0].Phone == undefined && value.Textline[0].Name == undefined) {
+          if (value.Airtable[0].Date == undefined) {
+
             setErr(true)
             hideTables();
             return
@@ -105,8 +110,6 @@ function App() {
             }
 
             if (i == len - 1) {
-              setArray([...array, value.Airtable]);
-
               setData(value);
             }
           }
@@ -143,44 +146,10 @@ function App() {
 
     }
 
+
     return (
       <>
-        <Autocomplete
-          id="country-select-demo"
-          sx={{ width: "80%" }}
-          options={suggestions}
-          autoHighlight
-          getOptionLabel={(option) => {
-            // option.phone.replace('(',"").replace(')', "").replace('-', "")
-            setPhoneOrEmail(option.phone.replace('(', "").replace(')', "").replace('-', "").replace(' ', "").replace('+', ""))
-            return option.phone
-          }}
-          // isOptionEqualToValue={(option, value) => {
-          //   console.log(option.phone === value.phone)
-          //   console.log(value.phone)
-          // }}
-          renderOption={(props, option) => (
-            <Box style={{ flexDirection: "column" }} component="li" key={option.phone} {...props}>
-              <h2>{option.first_name + " " + option.last_name}</h2>
-              {/* <br></br> */}
-              <h3> {option.email} </h3>
-              {/* <br></br> */}
-              <h4> {option.phone}</h4>
-            </Box>
-          )}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              value={phoneOrEmail}
-              onChange={handlePhoneChange}
-              label="Email or Phone"
-              inputProps={{
-                ...params.inputProps,
-                autoComplete: 'new-password', // disable autocomplete and autofill
-              }}
-            />
-          )}
-        />
+        <AutoCompleteVirtualize phoneOrEmail={phoneOrEmail} options={suggestions} onChange2={handlePhoneChange2} onChange={handlePhoneChange} />
         <Button style={{ marginLeft: '1rem' }} className="App-Button" disabled={isDisable} variant="contained" onClick={handleSubmitClick}>Submit</Button>
       </>
 
@@ -216,7 +185,7 @@ function App() {
 
         <h2 id="toShow4" className="toShow tb-header">AIR-TABLE </h2>
         <div id="toShow5" className="tb-table-container toShow">
-          <Table tableName={"AirTable"} data={array} columns={columnsAirTable} />
+          <Table tableName={"AirTable"} data={data.Airtable} columns={columnsAirTable} />
         </div>
         <div id="toShow6" className="toShow">
           <Appointment />
@@ -284,12 +253,12 @@ const columnsTextLine = [
   {
     Header: 'Message',
     accessor: 'Message',
-    width: 150,
+    width: 100,
   },
   {
     Header: 'Timestamp',
     accessor: 'Timestamp',
-    width: 100,
+    width: 20,
   },
 
 ]

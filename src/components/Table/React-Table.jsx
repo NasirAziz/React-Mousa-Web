@@ -29,7 +29,7 @@ const Styles = styled.div`
       ${'' /* These styles are required for a scrollable table body */}
       overflow-y: scroll;
       overflow-x: hidden;
-      height: 250px;
+      height: 400px;
     }
 
     .tr {
@@ -46,18 +46,16 @@ const Styles = styled.div`
       margin: 0;
       padding: 0.5rem;
       border-right: 1px solid black;
-
-      ${'' /* In this example we use an absolutely position resizer,
+ :last-child {
+        border-right: 0;
+      }
+            ${'' /* In this example we use an absolutely position resizer,
        so this is required. */}
       position: relative;
 
-      :last-child {
-        border-right: 0;
-      }
-
       .resizer {
         right: 0;
-        background: blue;
+        background: grey;
         width: 5px;
         height: 100%;
         position: absolute;
@@ -95,16 +93,18 @@ function TableComponent({ columns, data }) {
   const defaultColumn = React.useMemo(
     () => ({
       // When using the useFlexLayout:
-      minWidth: 15, // minWidth is only used as a limit for resizing
-      // width: 150, // width is used for both the flex-basis and flex-grow
-      maxWidth: 500, // maxWidth is only used as a limit for resizing
+      minWidth: 1.5, // minWidth is only used as a limit for resizing
+      width: 150, // width is used for both the flex-basis and flex-grow
+      maxWidth: 100, // maxWidth is only used as a limit for resizing
     }),
     []
   )
   const getCellValue = (e, j) => {
     if (e.column.Header == 'Confirmation Page') {
-      setConfirmationPage(e.value)
-      setModalOpen(true)
+      if (e.value !== undefined || e.value !== "") {
+        setConfirmationPage(e.value)
+        setModalOpen(true)
+      }
 
     }
 
@@ -114,7 +114,7 @@ function TableComponent({ columns, data }) {
     {
       columns,
       data,
-      // defaultColumn,
+      defaultColumn,
     },
     useResizeColumns,
     useFlexLayout,
@@ -176,6 +176,14 @@ function TableComponent({ columns, data }) {
 }
 
 function Table({ data, columns, tableName }) {
+  debugger
+  let widthX = 0
+  if (tableName === "Textline")
+    widthX = 1.5;
+  if (tableName === "AirTable")
+    widthX = 26;
+  if (tableName === "Acuity")
+    widthX = 20;
 
   const [data2, setData2] = useState([]);
 
@@ -189,9 +197,11 @@ function Table({ data, columns, tableName }) {
       {
         header: 'Delete',
         accessor: 'delete',
-        width: tableName === "Textline" ? 1 : 15,
+        width: widthX,
+
         Cell: ({ row }) => (
-          <div onClick={() => {
+
+          <div style={{ fontWeight: "bold" }} onClick={() => {
             const dataCopy = [...data2]
             dataCopy.splice(row.index, 1)
             setData2([...dataCopy])
