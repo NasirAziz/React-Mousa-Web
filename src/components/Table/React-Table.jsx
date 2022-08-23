@@ -17,7 +17,7 @@ const Styles = styled.div`
   .table {
     border-spacing: 0;
     border: 1px solid black;
-    width: 200%;
+    width: ${props => props.tableWidth};
 
     .thead {
       ${'' /* These styles are required for a scrollable body to align with the header properly */}
@@ -33,6 +33,9 @@ const Styles = styled.div`
     }
 
     .tr {
+      :nth-child(odd) {  
+         background-color: #E1F0FF;  
+        }
       :last-child {
         .td {
           border-bottom: 0;
@@ -105,9 +108,25 @@ function TableComponent({ columns, data }) {
     debugger;
     if (e.column.Header == 'Confirmation Page') {
       if (e.value !== undefined || e.value !== "") {
-        setConfirmationPage(e.value)
-        setModalOpen(true)
+        window.open(e.value, "", "width=400,height=600");
+
       }
+    }
+    if (e.column.Header == ' First Name') {
+
+      if (e.row.values.airtable_link !== undefined || e.row.values.airtable_link !== "") {
+        window.open(e.row.values.airtable_link, "", "width=400,height=600");
+
+      }
+
+    }
+    if (e.column.Header == 'Name') {
+
+      if (e.row.values.conversation_link !== undefined || e.row.values.conversation_link !== "") {
+        window.open(e.row.values.conversation_link, "", "width=400,height=600");
+
+      }
+
     }
   
 
@@ -131,13 +150,14 @@ function TableComponent({ columns, data }) {
         {headerGroups.map(headerGroup => (
           <div onClick={() => getCellValue(headerGroup.headers[0])} {...headerGroup.getHeaderGroupProps()}
             {...headerGroup.getHeaderGroupProps({
-              // style: { paddingRight: '15px' },
+              style: { fontWeight: 'bold', fontSize: '20px', background: '#0F4A82', paddingRight: '16px', color: 'white' },
             })}
             className="tr"
           >
             {headerGroup.headers.map(column => (
               <div {...column.getHeaderProps(headerProps)} className="th" >
                 {column.render('Header')}
+
 
                 {/* Use column.getResizerProps to hook up the events correctly */}
                 {column.canResize && (

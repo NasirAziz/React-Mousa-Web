@@ -259,6 +259,11 @@ const columnsTextLine = [
     Header: 'Timestamp',
     accessor: 'Timestamp',
     width: 20,
+  },
+  {
+    Header: 'conversation_link',
+    accessor: 'conversation_link',
+    width: 20,
   }
 
 ]
@@ -266,7 +271,7 @@ const columnsTextLine = [
 const columnsAirTable = [
 
   {
-    Header: 'First Name',
+    Header: ' First Name',
     accessor: 'First Name',
   },
   {
@@ -319,6 +324,10 @@ const columnsAirTable = [
   }, {
     Header: 'Date Of Birth',
     accessor: 'Date Of Birth',
+  },
+  {
+    Header: 'Airtable link',
+    accessor: 'airtable_link',
   },
 
 ]
