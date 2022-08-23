@@ -259,7 +259,7 @@ const columnsTextLine = [
     Header: 'Timestamp',
     accessor: 'Timestamp',
     width: 20,
-  },
+  }
 
 ]
 
