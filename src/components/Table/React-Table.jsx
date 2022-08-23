@@ -108,14 +108,22 @@ function TableComponent({ columns, data }) {
     debugger;
     if (e.column.Header == 'Confirmation Page') {
       if (e.value !== undefined || e.value !== "") {
-        setConfirmationPage(e.value)
-        setModalOpen(true)
+        window.open(e.value, "", "width=400,height=600");
+
       }
     }
     if (e.column.Header == ' First Name') {
 
       if (e.row.values.airtable_link !== undefined || e.row.values.airtable_link !== "") {
         window.open(e.row.values.airtable_link, "", "width=400,height=600");
+
+      }
+
+    }
+    if (e.column.Header == 'Name') {
+
+      if (e.row.values.conversation_link !== undefined || e.row.values.conversation_link !== "") {
+        window.open(e.row.values.conversation_link, "", "width=400,height=600");
 
       }
 
@@ -192,7 +200,7 @@ function TableComponent({ columns, data }) {
 }
 
 function Table({ data, columns, tableName }) {
-
+  debugger
   let widthX = 0
   if (tableName === "Textline")
     widthX = 1.5;
