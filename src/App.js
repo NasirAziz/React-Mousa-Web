@@ -1,4 +1,3 @@
-
 import React, { useState } from "react"
 import { Button, TextField, Alert, AlertTitle, Autocomplete, createFilterOptions, Box } from '@mui/material';
 import AutoCompleteVirtualize from "./components/AutoComplete";
@@ -266,7 +265,7 @@ const columnsTextLine = [
 const columnsAirTable = [
 
   {
-    Header: 'First Name',
+    Header: ' First Name',
     accessor: 'First Name',
   },
   {
@@ -319,6 +318,10 @@ const columnsAirTable = [
   }, {
     Header: 'Date Of Birth',
     accessor: 'Date Of Birth',
+  },
+  {
+    Header: 'Airtable link',
+    accessor: 'airtable_link',
   },
 
 ]

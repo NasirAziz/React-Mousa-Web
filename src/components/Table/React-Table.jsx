@@ -17,7 +17,7 @@ const Styles = styled.div`
   .table {
     border-spacing: 0;
     border: 1px solid black;
-    width: 200%;
+    width: ${props => props.tableWidth};
 
     .thead {
       ${'' /* These styles are required for a scrollable body to align with the header properly */}
@@ -33,6 +33,9 @@ const Styles = styled.div`
     }
 
     .tr {
+      :nth-child(odd) {  
+         background-color: #E1F0FF;  
+        }
       :last-child {
         .td {
           border-bottom: 0;
@@ -109,7 +112,15 @@ function TableComponent({ columns, data }) {
         setModalOpen(true)
       }
     }
-  
+    if (e.column.Header == ' First Name') {
+
+      if (e.row.values.airtable_link !== undefined || e.row.values.airtable_link !== "") {
+        window.open(e.row.values.airtable_link, "", "width=400,height=600");
+
+      }
+
+    }
+
 
 
   };
@@ -131,13 +142,14 @@ function TableComponent({ columns, data }) {
         {headerGroups.map(headerGroup => (
           <div onClick={() => getCellValue(headerGroup.headers[0])} {...headerGroup.getHeaderGroupProps()}
             {...headerGroup.getHeaderGroupProps({
-              // style: { paddingRight: '15px' },
+              style: { fontWeight: 'bold', fontSize: '20px', background: '#0F4A82', paddingRight: '16px', color: 'white' },
             })}
             className="tr"
           >
             {headerGroup.headers.map(column => (
               <div {...column.getHeaderProps(headerProps)} className="th" >
                 {column.render('Header')}
+
 
                 {/* Use column.getResizerProps to hook up the events correctly */}
                 {column.canResize && (
@@ -180,7 +192,7 @@ function TableComponent({ columns, data }) {
 }
 
 function Table({ data, columns, tableName }) {
-  debugger
+
   let widthX = 0
   if (tableName === "Textline")
     widthX = 1.5;
@@ -221,10 +233,13 @@ function Table({ data, columns, tableName }) {
     ],
     [data2]
   )
+  let tableWidth = "200%"
+  if (tableName === "Textline")
+    tableWidth = "100%"
 
   return (
     <div >
-      <Styles>
+      <Styles tableWidth={tableWidth}>
         <TableComponent columns={newColumns} data={data2} />
       </Styles>
     </div>
