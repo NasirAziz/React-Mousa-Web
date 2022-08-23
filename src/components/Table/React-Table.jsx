@@ -105,21 +105,19 @@ function TableComponent({ columns, data }) {
     []
   )
   const getCellValue = (e, j) => {
-    debugger;
-    if (e.column.Header == 'Confirmation Page') {
-      if (e.value !== undefined || e.value !== "") {
-        window.open(e.value, "", "width=400,height=600");
+
+    if (e.column.Header == 'First Name') {
+      if (e.row.values.appointment_link !== undefined || e.row.values.appointment_link !== "") {
+        window.open(e.row.values.appointment_link, "", "width=400,height=600");
 
       }
     }
-    if (e.column.Header == ' First Name') {
-
+    if (e.column.Header == 'First Name')
       if (e.row.values.airtable_link !== undefined || e.row.values.airtable_link !== "") {
         window.open(e.row.values.airtable_link, "", "width=400,height=600");
-
       }
 
-    }
+
     if (e.column.Header == 'Name') {
 
       if (e.row.values.conversation_link !== undefined || e.row.values.conversation_link !== "") {
@@ -138,6 +136,9 @@ function TableComponent({ columns, data }) {
       columns,
       data,
       defaultColumn,
+      initialState: {
+        hiddenColumns: ['airtable_link', 'conversation_link', 'appointment_link']
+      }
     },
     useResizeColumns,
     useFlexLayout,

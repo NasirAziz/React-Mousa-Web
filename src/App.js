@@ -200,6 +200,8 @@ const columnsAcuity = [
   {
     Header: 'First Name',
     accessor: 'First Name',
+    Cell: ({ value }) => <p style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }}>{value}</p>
+
 
   },
   {
@@ -239,6 +241,11 @@ const columnsAcuity = [
     Header: 'Confirmation Page',
     accessor: 'Confirmation page',
   },
+  {
+    id: 'appointment_link',
+    Header: 'Appointment Link',
+    accessor: 'appointment_link',
+  },
 
 ]
 
@@ -248,6 +255,8 @@ const columnsTextLine = [
     Header: 'Name',
     accessor: 'Name',
     width: 15,
+    Cell: ({ value }) => <p style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }}>{value}</p>
+
   },
   {
     Header: 'Message',
@@ -260,6 +269,7 @@ const columnsTextLine = [
     width: 20,
   },
   {
+    id: 'conversation_link',
     Header: 'conversation_link',
     accessor: 'conversation_link',
     width: 20,
@@ -270,8 +280,9 @@ const columnsTextLine = [
 const columnsAirTable = [
 
   {
-    Header: ' First Name',
+    Header: 'First Name',
     accessor: 'First Name',
+    Cell: ({ value }) => <p style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }}>{value}</p>
   },
   {
     Header: 'Last Name',
@@ -325,8 +336,10 @@ const columnsAirTable = [
     accessor: 'Date Of Birth',
   },
   {
+    id: "airtable_link",
     Header: 'Airtable link',
     accessor: 'airtable_link',
+    show: false
   },
 
 ]
