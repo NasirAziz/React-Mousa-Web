@@ -17,7 +17,7 @@ const Styles = styled.div`
   .table {
     border-spacing: 0;
     border: 1px solid black;
-    width: ${props => props.tableWidth};
+    width: 200%;
 
     .thead {
       ${'' /* These styles are required for a scrollable body to align with the header properly */}
@@ -33,9 +33,6 @@ const Styles = styled.div`
     }
 
     .tr {
-      :nth-child(odd) {  
-         background-color: #E1F0FF;  
-        }
       :last-child {
         .td {
           border-bottom: 0;
@@ -89,10 +86,12 @@ const getStyles = (props, align = 'left') => [
   },
 ]
 
-function TableComponent({ columns, data, }) {
+function TableComponent({ columns, data }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [cellValue, setCellValue] = useState('');
   const [ConfirmationPage, setConfirmationPage] = useState('')
+  const [airTableLink, setairTableLink] = useState('')
+
   const defaultColumn = React.useMemo(
     () => ({
       // When using the useFlexLayout:
@@ -103,13 +102,15 @@ function TableComponent({ columns, data, }) {
     []
   )
   const getCellValue = (e, j) => {
+    debugger;
     if (e.column.Header == 'Confirmation Page') {
       if (e.value !== undefined || e.value !== "") {
         setConfirmationPage(e.value)
         setModalOpen(true)
       }
-
     }
+  
+
 
   };
 
@@ -130,7 +131,7 @@ function TableComponent({ columns, data, }) {
         {headerGroups.map(headerGroup => (
           <div onClick={() => getCellValue(headerGroup.headers[0])} {...headerGroup.getHeaderGroupProps()}
             {...headerGroup.getHeaderGroupProps({
-              style: { fontWeight: 'bold', fontSize: '20px', background: '#0F4A82', paddingRight: '16px', color: 'white' },
+              // style: { paddingRight: '15px' },
             })}
             className="tr"
           >
@@ -156,7 +157,11 @@ function TableComponent({ columns, data, }) {
         {rows.map((row, cell, j) => {
           prepareRow(row)
           return (
-            <div {...row.getRowProps()} className="tr">
+            <div {...row.getRowProps()} className="tr"
+            // onClick={(e) => {
+            //   debugger;
+            // }}
+            >
               {row.cells.map(cell => {
 
                 return (
@@ -175,7 +180,7 @@ function TableComponent({ columns, data, }) {
 }
 
 function Table({ data, columns, tableName }) {
-
+  debugger
   let widthX = 0
   if (tableName === "Textline")
     widthX = 1.5;
@@ -216,13 +221,10 @@ function Table({ data, columns, tableName }) {
     ],
     [data2]
   )
-  let tableWidth = "200%"
-  if (tableName === "Textline")
-    tableWidth = "100%"
 
   return (
     <div >
-      <Styles tableWidth={tableWidth}>
+      <Styles>
         <TableComponent columns={newColumns} data={data2} />
       </Styles>
     </div>
