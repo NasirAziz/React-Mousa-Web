@@ -5,6 +5,9 @@ import {
   useResizeColumns,
   useFlexLayout,
 } from 'react-table'
+// import TableCell from "@material-ui/core/TableCell";
+// import TableHead from "@material-ui/core/TableHead";
+// import TableRow from "@material-ui/core/TableRow";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -53,11 +56,10 @@ const Styles = styled.div`
       }
             ${'' /* In this example we use an absolutely position resizer,
        so this is required. */}
-      position: relative;
 
       .resizer {
         right: 0;
-        background: grey;
+        background: white;
         width: 5px;
         height: 100%;
         position: absolute;

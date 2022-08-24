@@ -1,15 +1,15 @@
-import React, { useState ,useEffect} from "react"
-import { Button, TextField, Alert, AlertTitle, Autocomplete, createFilterOptions, Box } from '@mui/material';
-import AutoCompleteVirtualize from "./components/AutoComplete";
+import React, { useState, useEffect } from "react"
+import { Button, Alert, AlertTitle, } from '@mui/material';
+// import AutoCompleteVirtualize from "./components/AutoComplete";
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import './App.css'
-import Appointment from "./pages/Appointment";
+// import Appointment from "./pages/Appointment";
 import Table from "./components/Table/React-Table";
 
 
 function App() {
- 
+
   // const [suggestions, setSuggestions] = useState([]);
 
   // const getSuggestions = async () => {
@@ -30,7 +30,7 @@ function App() {
 
   const [data, setData] = useState({ Airtable: [], Acuity: [], Textline: [] });
   const [err, setErr] = useState(false);
-  const [phone,setPhone] = useState('')
+  // const [phone, setPhone] = useState('')
 
   const Header = () => {
     const [suggestions, setSuggestions] = useState([])
@@ -39,42 +39,39 @@ function App() {
     // let suggestions = [];
     const [isDisable, setIsDisable] = useState(false);
 
-    const getSuggestions = async (phone) => {
-      debugger;
-      const options2 = await fetch(`https://mousa-web-api.herokuapp.com/suggest?key=${phone}`)
-      if (options2.ok) {
+    // const getSuggestions = async (phone) => {
 
-        options2.json().then((value) => {
-          setSuggestions(value)
-        })
-      }
+    //   const options2 = await fetch(`https://mousa-web-api.herokuapp.com/suggest?key=${phone}`)
+    //   if (options2.ok) {
+
+    //     options2.json().then((value) => {
+    //       setSuggestions(value)
+    //     })
+    //   }
+    // }
+    // declare the data fetching function
+    const fetchData = async () => {
+      const data = await fetch('https://mousa-web-api.herokuapp.com/');
+      data.json().then((value) => {
+        setSuggestions(value)
+      })
     }
     useEffect(() => {
-      // declare the data fetching function
-      const fetchData = async () => {
-        const data = await fetch('https://mousa-web-api.herokuapp.com/');
-        data.json().then((value) => {
-          setSuggestions(value)
-        })
-      }
-    
       // call the function
-      fetchData()
-        
-        .catch(console.error);
+      fetchData().catch(console.error);
     }, [])
 
-    const handlePhoneChange = (e) => {
-      debugger;
-      phoneOrEmail = e.target.value
+    // const handlePhoneChange = (e) => {
 
-      if (e.target.value.length > 0)
-        getSuggestions(phoneOrEmail)
+    //   phoneOrEmail = e.target.value
 
-    }
-    const handlePhoneChange2 = (e, v) => {
-      phoneOrEmail = v.phone
-    }
+    //   if (e.target.value.length > 0)
+    //     getSuggestions(phoneOrEmail)
+
+    // }
+    // const handlePhoneChange2 = (e, v) => {
+    //   phoneOrEmail = v.phone
+    // }
 
     function formatDate(string) {
 
@@ -90,7 +87,7 @@ function App() {
 
       setIsDisable(true);
       try {
-        debugger;
+
         // change this string/text and press Ctrl + S to save the file and then press Ctrl + ` to open the terminal 3478131929
         const response = await fetch('https://hook.us1.make.com/der2itrt38fuk2rsmpclth7qohnaivj1?phone=' + phoneOrEmail.trim());
 
@@ -100,7 +97,7 @@ function App() {
           return
         }
         response.json().then((value) => {
-          if (value.Airtable[0].Date == undefined) {
+          if (value.Airtable[0].Date === undefined) {
 
             setErr(true)
             hideTables();
@@ -124,7 +121,7 @@ function App() {
               value.Acuity[i].DateTime = formatDate(value.Acuity[i].DateTime);
             }
 
-            if (i == len - 1) {
+            if (i === len - 1) {
               setData(value);
             }
           }
@@ -162,30 +159,38 @@ function App() {
     }
     const formatResult = (item) => {
       return (
-        <>
-          <span style={{ display: 'block', textAlign: 'left' }}>{item.first_name}</span>
-          <span style={{ display: 'block', textAlign: 'left' }}>{item.last_name}</span>
+        <div >
+          <span style={{ display: 'block', fontWeight: "bold", textAlign: 'left' }}>{item.first_name + " " + item.last_name}</span>
           <span style={{ display: 'block', textAlign: 'left' }}>{item.phone}</span>
-        </>
+          <span style={{ display: 'block', textAlign: 'left' }}>{item.email}</span>
+        </div>
       )
     }
     const handleOnSelect = (item) => {
-      debugger;
+
       phone1 = item.phone;
     }
 
     return (
       <>
-        {/* <AutoCompleteVirtualize phoneOrEmail={phoneOrEmail} options={suggestions} onChange2={handlePhoneChange2} onChange={handlePhoneChange} /> */}
-        <div style={{ width: 400 }}>
-           <ReactSearchAutocomplete
+        {/* style={{ overflowY: "scroll", height: "20%" }}  <AutoCompleteVirtualize phoneOrEmail={phoneOrEmail} options={suggestions} onChange2={handlePhoneChange2} onChange={handlePhoneChange} /> */}
+        <div style={{ width: "80%", zIndex: 4 }}>
+          <ReactSearchAutocomplete
             items={suggestions}
-            fuseOptions={{ keys: ["first_name", "last_name","phone","email"] }}
-            resultStringKeyName="first_name"
-            maxResults = "8"
+            fuseOptions={{ keys: ["first_name", "last_name", "phone", "email"] }}
+            resultStringKeyName="phone"
+            maxResults="5"
+            showItemsOnFocus={true}
             formatResult={formatResult}
             onSelect={handleOnSelect}
-          
+            placeholder="Phone or Email"
+            styling={
+              {
+                opacity: "1",
+                overflowY: "scroll",
+                height: "50px"
+              }
+            }
           /></div>
         <Button style={{ marginLeft: '1rem' }} className="App-Button" disabled={isDisable} variant="contained" onClick={handleSubmitClick}>Submit</Button>
       </>

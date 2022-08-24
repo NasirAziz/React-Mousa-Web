@@ -57,6 +57,7 @@
   width: 50%;
   height: 100%;
   margin: auto;
+  margin-bottom: 9rem;
   display: flex;
   padding: 10px;
 }
