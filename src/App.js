@@ -186,9 +186,9 @@ function App() {
         <div id="toShow5" className="tb-table-container toShow">
           <Table tableName={"AirTable"} data={data.Airtable} columns={columnsAirTable} />
         </div>
-        <div id="toShow6" className="toShow">
+        {/* <div id="toShow6" className="toShow">
           <Appointment />
-        </div>
+        </div> */}
       </>}
 
     </div >
