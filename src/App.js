@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useState ,useEffect} from "react"
 import { Button, TextField, Alert, AlertTitle, Autocomplete, createFilterOptions, Box } from '@mui/material';
 import AutoCompleteVirtualize from "./components/AutoComplete";
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import './App.css'
 import Appointment from "./pages/Appointment";
@@ -8,7 +9,7 @@ import Table from "./components/Table/React-Table";
 
 
 function App() {
-
+ 
   // const [suggestions, setSuggestions] = useState([]);
 
   // const getSuggestions = async () => {
@@ -29,16 +30,17 @@ function App() {
 
   const [data, setData] = useState({ Airtable: [], Acuity: [], Textline: [] });
   const [err, setErr] = useState(false);
-
+  const [phone,setPhone] = useState('')
 
   const Header = () => {
-    const [suggestions, setSuggestions] = useState([]);
+    const [suggestions, setSuggestions] = useState([])
     let phoneOrEmail = "";
+    let phone1 = ""
     // let suggestions = [];
     const [isDisable, setIsDisable] = useState(false);
 
     const getSuggestions = async (phone) => {
-
+      debugger;
       const options2 = await fetch(`https://mousa-web-api.herokuapp.com/suggest?key=${phone}`)
       if (options2.ok) {
 
@@ -47,9 +49,23 @@ function App() {
         })
       }
     }
-
+    useEffect(() => {
+      // declare the data fetching function
+      const fetchData = async () => {
+        const data = await fetch('https://mousa-web-api.herokuapp.com/');
+        data.json().then((value) => {
+          setSuggestions(value)
+        })
+      }
+    
+      // call the function
+      fetchData()
+        
+        .catch(console.error);
+    }, [])
 
     const handlePhoneChange = (e) => {
+      debugger;
       phoneOrEmail = e.target.value
 
       if (e.target.value.length > 0)
@@ -70,7 +86,7 @@ function App() {
 
     const handleSubmitClick = async (e) => {
 
-      phoneOrEmail = phoneOrEmail.replace('(', "").replace(')', "").replace('+', "").replace(' ', "").replace('-', "").replace('-', "")
+      phoneOrEmail = phone1.replace('(', "").replace(')', "").replace('+', "").replace(' ', "").replace('-', "").replace('-', "")
 
       setIsDisable(true);
       try {
@@ -144,11 +160,33 @@ function App() {
       document.getElementById("toShow6").style.display = "none";
 
     }
-
+    const formatResult = (item) => {
+      return (
+        <>
+          <span style={{ display: 'block', textAlign: 'left' }}>{item.first_name}</span>
+          <span style={{ display: 'block', textAlign: 'left' }}>{item.last_name}</span>
+          <span style={{ display: 'block', textAlign: 'left' }}>{item.phone}</span>
+        </>
+      )
+    }
+    const handleOnSelect = (item) => {
+      debugger;
+      phone1 = item.phone;
+    }
 
     return (
       <>
-        <AutoCompleteVirtualize phoneOrEmail={phoneOrEmail} options={suggestions} onChange2={handlePhoneChange2} onChange={handlePhoneChange} />
+        {/* <AutoCompleteVirtualize phoneOrEmail={phoneOrEmail} options={suggestions} onChange2={handlePhoneChange2} onChange={handlePhoneChange} /> */}
+        <div style={{ width: 400 }}>
+           <ReactSearchAutocomplete
+            items={suggestions}
+            fuseOptions={{ keys: ["first_name", "last_name","phone","email"] }}
+            resultStringKeyName="first_name"
+            maxResults = "8"
+            formatResult={formatResult}
+            onSelect={handleOnSelect}
+          
+          /></div>
         <Button style={{ marginLeft: '1rem' }} className="App-Button" disabled={isDisable} variant="contained" onClick={handleSubmitClick}>Submit</Button>
       </>
 
