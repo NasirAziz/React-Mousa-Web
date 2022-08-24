@@ -280,7 +280,7 @@ const columnsTextLine = [
 const columnsAirTable = [
 
   {
-    Header: 'First Name',
+    Header: ' First Name',
     accessor: 'First Name',
     Cell: ({ value }) => <p style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }}>{value}</p>
   },

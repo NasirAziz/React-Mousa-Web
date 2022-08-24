@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Popup from '../Popup'
 import {
   useTable,
   useResizeColumns,
@@ -90,17 +89,15 @@ const getStyles = (props, align = 'left') => [
 ]
 
 function TableComponent({ columns, data }) {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [cellValue, setCellValue] = useState('');
-  const [ConfirmationPage, setConfirmationPage] = useState('')
-  const [airTableLink, setairTableLink] = useState('')
+  // const [cellValue, setCellValue] = useState('');
+  // const [airTableLink, setairTableLink] = useState('')
 
   const defaultColumn = React.useMemo(
     () => ({
       // When using the useFlexLayout:
       minWidth: 1.5, // minWidth is only used as a limit for resizing
       width: 150, // width is used for both the flex-basis and flex-grow
-      maxWidth: 100, // maxWidth is only used as a limit for resizing
+      maxWidth: 400, // maxWidth is only used as a limit for resizing
     }),
     []
   )
@@ -112,7 +109,7 @@ function TableComponent({ columns, data }) {
 
       }
     }
-    if (e.column.Header == 'First Name')
+    if (e.column.Header == ' First Name')
       if (e.row.values.airtable_link !== undefined || e.row.values.airtable_link !== "") {
         window.open(e.row.values.airtable_link, "", "width=400,height=600");
       }
@@ -195,7 +192,6 @@ function TableComponent({ columns, data }) {
           )
         })}
       </div>
-      {modalOpen && <Popup setOpenModal={setModalOpen} url={ConfirmationPage} />}
     </div>
   )
 }
