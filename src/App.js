@@ -1,54 +1,25 @@
 import React, { useState, useEffect } from "react"
 import { Button, Alert, AlertTitle, } from '@mui/material';
-// import AutoCompleteVirtualize from "./components/AutoComplete";
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
-
 import './App.css'
-// import Appointment from "./pages/Appointment";
 import Table from "./components/Table/React-Table";
 
 
 function App() {
-
-  // const [suggestions, setSuggestions] = useState([]);
-
-  // const getSuggestions = async () => {
-
-  //   const options2 = await fetch(`https://mousa-web-api.herokuapp.com/`)
-  //   if (options2.ok) {
-  //     options2.json().then((value) => {
-  //       setSuggestions(value)
-  //       console.log(suggestions.length)
-  //     })
-  //   }
-  // }
-
-  // React.useEffect(() => { getSuggestions() }, [])
-
-  // getSuggestions()
-
-
+  debugger
   const [data, setData] = useState({ Airtable: [], Acuity: [], Textline: [] });
+  const [pastAp, setPastAp] = useState([]);
+  const [futureAp, setFutureAp] = useState([]);
   const [err, setErr] = useState(false);
-  // const [phone, setPhone] = useState('')
+
 
   const Header = () => {
     const [suggestions, setSuggestions] = useState([])
     let phoneOrEmail = "";
     let phone1 = ""
-    // let suggestions = [];
+
     const [isDisable, setIsDisable] = useState(false);
 
-    // const getSuggestions = async (phone) => {
-
-    //   const options2 = await fetch(`https://mousa-web-api.herokuapp.com/suggest?key=${phone}`)
-    //   if (options2.ok) {
-
-    //     options2.json().then((value) => {
-    //       setSuggestions(value)
-    //     })
-    //   }
-    // }
     // declare the data fetching function
     const fetchData = async () => {
       const data = await fetch('https://mousa-web-api.herokuapp.com/');
@@ -61,18 +32,6 @@ function App() {
       fetchData().catch(console.error);
     }, [])
 
-    // const handlePhoneChange = (e) => {
-
-    //   phoneOrEmail = e.target.value
-
-    //   if (e.target.value.length > 0)
-    //     getSuggestions(phoneOrEmail)
-
-    // }
-    // const handlePhoneChange2 = (e, v) => {
-    //   phoneOrEmail = v.phone
-    // }
-
     function formatDate(string) {
 
       let date = new Date(string.substring(0, 10)).toLocaleDateString('en-US') + " "
@@ -84,7 +43,7 @@ function App() {
     const handleSubmitClick = async (e) => {
 
       phoneOrEmail = phone1.replace('(', "").replace(')', "").replace('+', "").replace(' ', "").replace('-', "").replace('-', "")
-
+      console.log("Phone " + phone1 + phoneOrEmail)
       setIsDisable(true);
       try {
 
@@ -97,7 +56,8 @@ function App() {
           return
         }
         response.json().then((value) => {
-          if (value.Airtable[0].Date === undefined) {
+
+          if (value.Airtable[0]["First Name"] === undefined & value.Acuity[0]["First Name"] === undefined) {
 
             setErr(true)
             hideTables();
@@ -107,12 +67,15 @@ function App() {
           var Textlinelength = value.Textline.length;
           var Acuitylength = value.Acuity.length;
           var len = 0;
+          let pastArray = []
+          let futureArray = []
           if (Textlinelength > Acuitylength) {
             len = Textlinelength;
           }
           else {
             len = Acuitylength;
           }
+
           for (var i = 0; i < len; i++) {
             if (i < Textlinelength) {
               value.Textline[i].Timestamp = formatDate(value.Textline[i].Timestamp);
@@ -125,6 +88,18 @@ function App() {
               setData(value);
             }
           }
+          let todayDate = new Date()
+          value.Acuity.map((v, index) => {
+
+            let date = new Date(v.DateTime.split(" ")[0])
+            if (date.getTime() < todayDate.getTime())
+              pastArray.push(v)
+            else
+              futureArray.push(v)
+          })
+
+          setPastAp(pastArray)
+          setFutureAp(futureArray)
 
           showTables();
 
@@ -138,24 +113,13 @@ function App() {
     };
 
     const showTables = () => {
+
       document.getElementById("toShow").style.display = "block";
-      document.getElementById("toShow1").style.display = "block";
-      document.getElementById("toShow2").style.display = "block";
-      document.getElementById("toShow3").style.display = "block";
-      document.getElementById("toShow4").style.display = "block";
-      document.getElementById("toShow5").style.display = "block";
-      document.getElementById("toShow6").style.display = "block";
+
     }
 
     const hideTables = () => {
       document.getElementById("toShow").style.display = "none";
-      document.getElementById("toShow1").style.display = "none";
-      document.getElementById("toShow2").style.display = "none";
-      document.getElementById("toShow3").style.display = "none";
-      document.getElementById("toShow4").style.display = "none";
-      document.getElementById("toShow5").style.display = "none";
-      document.getElementById("toShow6").style.display = "none";
-
     }
     const formatResult = (item) => {
       return (
@@ -173,11 +137,18 @@ function App() {
 
     return (
       <>
-        {/* style={{ overflowY: "scroll", height: "20%" }}  <AutoCompleteVirtualize phoneOrEmail={phoneOrEmail} options={suggestions} onChange2={handlePhoneChange2} onChange={handlePhoneChange} /> */}
         <div style={{ width: "80%", zIndex: 4 }}>
           <ReactSearchAutocomplete
             items={suggestions}
-            fuseOptions={{ keys: ["first_name", "last_name", "phone", "email"] }}
+            fuseOptions={{
+              keys: ["phone", "email"],
+              minMatchCharLength: 3,
+              includeScore: true,
+              includeMatches: true,
+              findAllMatches: true,
+              threshold: 0.3,
+              distance: 0
+            }}
             resultStringKeyName="phone"
             maxResults="5"
             showItemsOnFocus={true}
@@ -186,8 +157,6 @@ function App() {
             placeholder="Phone or Email"
             styling={
               {
-                opacity: "1",
-                overflowY: "scroll",
                 height: "50px"
               }
             }
@@ -197,6 +166,64 @@ function App() {
 
     );
 
+  }
+
+  const AcuityFuture = () => {
+    if (futureAp.length !== 0) {
+      return (
+        <>
+          <h2 id="toShow0" className="tb-header">ACUITY Future Appointments</h2>
+          <div id="toShow01" className="tb-table-container">
+            <Table tableName={"Acuity"} columns={columnsAcuity} data={futureAp} />
+          </div>
+        </>
+      )
+    } else return (
+      <h2 id="toShow00" className="tb-header">No Future Appointments</h2>
+    )
+  }
+  const AcuityPast = () => {
+    if (pastAp.length !== 0) {
+      return (
+        <>
+          <h2 id="toShow" className="tb-header">ACUITY Past Appointments</h2>
+          <div id="toShow1" className="tb-table-container">
+            <Table tableName={"Acuity"} columns={columnsAcuity} data={pastAp} />
+          </div>
+        </>
+      )
+    } else return (
+      <h2 id="toShow00" className="tb-header">No Past Appointments</h2>
+    )
+  }
+  const Textline = () => {
+    if (data.Textline.length !== 0) {
+      return (
+        <>
+          <h2 className="tb-header">TEXT LINE </h2>
+          <div id="toShow3" className="tb-table-container">
+            <Table tableName={"Textline"} data={data.Textline} columns={columnsTextLine} />
+          </div>
+        </>
+      )
+    } else return (
+      <h2 id="toShow00" className="tb-header">No TEXT LINE Data</h2>
+    )
+  }
+
+  const Airtable = () => {
+    if (data.Textline.length !== 0) {
+      return (
+        <>
+          <h2 id="toShow4" className="tb-header">AIR-TABLE </h2>
+          <div id="toShow5" className="tb-table-container">
+            <Table tableName={"AirTable"} data={data.Airtable} columns={columnsAirTable} />
+          </div>
+        </>
+      )
+    } else return (
+      <h2 id="toShow00" className="tb-header">No Airtable Data</h2>
+    )
   }
 
   return (
@@ -215,25 +242,16 @@ function App() {
         </Alert>
       }
       {<>
-        <h2 id="toShow" className="toShow tb-header">ACUITY </h2>
-        <div id="toShow1" className="tb-table-container toShow">
-          <Table tableName={"Acuity"} columns={columnsAcuity} data={data.Acuity} />
-        </div>
-
-        <h2 id="toShow2" className="toShow tb-header">TEXT LINE </h2>
-        <div id="toShow3" className="tb-table-container toShow">
-          <Table tableName={"Textline"} data={data.Textline} columns={columnsTextLine} />
-        </div>
-
-        <h2 id="toShow4" className="toShow tb-header">AIR-TABLE </h2>
-        <div id="toShow5" className="tb-table-container toShow">
-          <Table tableName={"AirTable"} data={data.Airtable} columns={columnsAirTable} />
-        </div>
-        {/* <div id="toShow6" className="toShow">
+        <div id="toShow" className="toShow">
+          <AcuityFuture />
+          <AcuityPast />
+          <Textline />
+          <Airtable />
+          {/* <div id="toShow6" className="toShow">
           <Appointment />
         </div> */}
+        </div>
       </>}
-
     </div >
   )
 }

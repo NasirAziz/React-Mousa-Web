@@ -199,7 +199,8 @@ function TableComponent({ columns, data }) {
 }
 
 function Table({ data, columns, tableName }) {
-  debugger
+
+  const [data2, setData2] = useState([]);
   let widthX = 0
   if (tableName === "Textline")
     widthX = 1.5;
@@ -208,10 +209,9 @@ function Table({ data, columns, tableName }) {
   if (tableName === "Acuity")
     widthX = 20;
 
-  const [data2, setData2] = useState([]);
 
   React.useEffect(() => {
-    if (data2.length === 0)
+    if (JSON.stringify(data2[0]) !== JSON.stringify(data[0]))
       setData2(data)
   });
 
@@ -224,7 +224,7 @@ function Table({ data, columns, tableName }) {
 
         Cell: ({ row }) => (
 
-          <div style={{ fontWeight: "bold" }} onClick={() => {
+          <div style={{ fontWeight: "bold", justifyContent: "center", alignItems: "center", textAlign: "center" }} onClick={() => {
             const dataCopy = [...data2]
             dataCopy.splice(row.index, 1)
             setData2([...dataCopy])
@@ -235,7 +235,6 @@ function Table({ data, columns, tableName }) {
         ),
       },
       ...columns
-
 
     ],
     [data2]
