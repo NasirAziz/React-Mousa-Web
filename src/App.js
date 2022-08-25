@@ -6,7 +6,7 @@ import Table from "./components/Table/React-Table";
 
 
 function App() {
-  debugger
+
   const [data, setData] = useState({ Airtable: [], Acuity: [], Textline: [] });
   const [pastAp, setPastAp] = useState([]);
   const [futureAp, setFutureAp] = useState([]);
@@ -15,16 +15,30 @@ function App() {
 
   const Header = () => {
     const [suggestions, setSuggestions] = useState([])
-    let phoneOrEmail = "";
-    let phone1 = ""
-
     const [isDisable, setIsDisable] = useState(false);
+
+    let phone1 = ""
+    let email = ""
 
     // declare the data fetching function
     const fetchData = async () => {
-      const data = await fetch('https://mousa-web-api.herokuapp.com/');
+      // debugger
+      let arr = []
+      const data = await fetch('https://mousa-web-api.herokuapp.com/textline') //fetch('https://mousa-web-api.herokuapp.com/');
+      const data2 = await fetch('https://mousa-web-api.herokuapp.com/acuity') //fetch('https://mousa-web-api.herokuapp.com/');
+      const data3 = await fetch('https://mousa-web-api.herokuapp.com/airtable') //fetch('https://mousa-web-api.herokuapp.com/');
       data.json().then((value) => {
-        setSuggestions(value)
+        arr.push(...value)
+
+      })
+
+      data2.json().then((value) => {
+        arr.push(...value)
+
+      })
+      data3.json().then((value) => {
+        arr.push(...value)
+        setSuggestions(arr)
       })
     }
     useEffect(() => {
@@ -42,13 +56,12 @@ function App() {
 
     const handleSubmitClick = async (e) => {
 
-      phoneOrEmail = phone1.replace('(', "").replace(')', "").replace('+', "").replace(' ', "").replace('-', "").replace('-', "")
-      console.log("Phone " + phone1 + phoneOrEmail)
+      phone1 = phone1.replace('(', "").replace(')', "").replace('+', "").replace(' ', "").replace('-', "").replace('-', "")
       setIsDisable(true);
       try {
 
         // change this string/text and press Ctrl + S to save the file and then press Ctrl + ` to open the terminal 3478131929
-        const response = await fetch('https://hook.us1.make.com/der2itrt38fuk2rsmpclth7qohnaivj1?phone=' + phoneOrEmail.trim());
+        const response = await fetch(`https://hook.us1.make.com/der2itrt38fuk2rsmpclth7qohnaivj1?phone=${phone1}&email=${email}`);
 
         if (!response.ok) {
           setErr(true)
@@ -56,9 +69,10 @@ function App() {
           return
         }
         response.json().then((value) => {
-
-          if (value.Airtable[0]["First Name"] === undefined & value.Acuity[0]["First Name"] === undefined) {
-
+          console.log(value.Airtable[0]["First Name"])
+          console.log(value.Acuity[0]["First Name"])
+          // debugger
+          if (value.Airtable[0]["First Name"] === undefined && value.Acuity[0]["First Name"] === undefined) {
             setErr(true)
             hideTables();
             return
@@ -122,9 +136,10 @@ function App() {
       document.getElementById("toShow").style.display = "none";
     }
     const formatResult = (item) => {
+      debugger
       return (
         <div >
-          <span style={{ display: 'block', fontWeight: "bold", textAlign: 'left' }}>{item.first_name + " " + item.last_name}</span>
+          <span style={{ display: 'block', fontWeight: "bold", textAlign: 'left' }}>{item.name}</span>
           <span style={{ display: 'block', textAlign: 'left' }}>{item.phone}</span>
           <span style={{ display: 'block', textAlign: 'left' }}>{item.email}</span>
         </div>
@@ -133,6 +148,7 @@ function App() {
     const handleOnSelect = (item) => {
 
       phone1 = item.phone;
+      email = item.email;
     }
 
     return (
