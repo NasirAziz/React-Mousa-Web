@@ -361,6 +361,8 @@ const Header = ({ setPastAp, setFutureAp, setData, setErr, setIsTableDataLoading
             pastArray.push(v)
           else
             futureArray.push(v)
+
+          return 0
         })
 
         setPastAp(pastArray)

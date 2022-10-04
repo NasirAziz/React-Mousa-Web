@@ -105,19 +105,19 @@ function TableComponent({ columns, data }) {
   )
   const getCellValue = (e, j) => {
 
-    if (e.column.Header == 'First Name') {
+    if (e.column.Header === 'First Name') {
       if (e.row.values.appointment_link !== undefined || e.row.values.appointment_link !== "") {
         window.open(e.row.values.appointment_link, "", "width=400,height=600");
 
       }
     }
-    if (e.column.Header == ' First Name')
+    if (e.column.Header === ' First Name')
       if (e.row.values.airtable_link !== undefined || e.row.values.airtable_link !== "") {
         window.open(e.row.values.airtable_link, "", "width=400,height=600");
       }
 
 
-    if (e.column.Header == 'Name') {
+    if (e.column.Header === 'Name') {
 
       if (e.row.values.conversation_link !== undefined || e.row.values.conversation_link !== "") {
         window.open(e.row.values.conversation_link, "", "width=400,height=600");
