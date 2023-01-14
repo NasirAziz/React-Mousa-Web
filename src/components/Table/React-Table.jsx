@@ -1,43 +1,38 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import {
-  useTable,
-  useResizeColumns,
-  useFlexLayout,
-} from 'react-table'
+import React, { useState } from "react"
+import styled from "styled-components"
+import { useTable, useResizeColumns, useFlexLayout } from "react-table"
 // import TableCell from "@material-ui/core/TableCell";
 // import TableHead from "@material-ui/core/TableHead";
 // import TableRow from "@material-ui/core/TableRow";
 
 const Styles = styled.div`
   padding: 1rem;
-  ${'' /* These styles are suggested for the table fill all available space in its containing element */}
+  ${"" /* These styles are suggested for the table fill all available space in its containing element */}
   display: block;
-  ${'' /* These styles are required for a horizontaly scrollable table overflow */}
   overflow: scroll;
-
+  ${"" /* These styles are required for a horizontaly scrollable table overflow */}
   .table {
     border-spacing: 0;
     border: 1px solid black;
-    width: ${props => props.tableWidth};
+    // width: ${(props) => props.tableWidth};
 
     .thead {
-      ${'' /* These styles are required for a scrollable body to align with the header properly */}
+      ${"" /* These styles are required for a scrollable body to align with the header properly */}
       overflow-y: auto;
       overflow-x: auto;
     }
 
     .tbody {
-      ${'' /* These styles are required for a scrollable table body */}
+      ${"" /* These styles are required for a scrollable table body */}
       overflow-y: scroll;
       overflow-x: hidden;
       height: 400px;
     }
 
     .tr {
-      :nth-child(odd) {  
-         background-color: #E1F0FF;  
-        }
+      :nth-child(odd) {
+        background-color: #e1f0ff;
+      }
       :last-child {
         .td {
           border-bottom: 0;
@@ -51,21 +46,23 @@ const Styles = styled.div`
       margin: 0;
       padding: 0.5rem;
       border-right: 1px solid black;
- :last-child {
+      :last-child {
         border-right: 0;
       }
-            ${'' /* In this example we use an absolutely position resizer,
-       so this is required. */}
+      ${
+        "" /* In this example we use an absolutely position resizer,
+       so this is required. */
+      }
 
       .resizer {
         right: 0;
         background: white;
-        width: 5px;
+        width: 2px;
         height: 100%;
         position: absolute;
         top: 0;
         z-index: 1;
-        ${'' /* prevents from scrolling while dragging on touch devices */}
+        ${"" /* prevents from scrolling while dragging on touch devices */}
         touch-action :none;
 
         &.isResizing {
@@ -79,13 +76,13 @@ const headerProps = (props, { column }) => getStyles(props, column.align)
 
 const cellProps = (props, { cell }) => getStyles(props, cell.column.align)
 
-const getStyles = (props, align = 'left') => [
+const getStyles = (props, align = "left") => [
   props,
   {
     style: {
-      justifyContent: align === 'right' ? 'flex-end' : 'flex-start',
-      alignItems: 'flex-start',
-      display: 'flex',
+      justifyContent: align === "right" ? "flex-end" : "flex-start",
+      alignItems: "flex-start",
+      display: "flex",
     },
   },
 ]
@@ -104,31 +101,22 @@ function TableComponent({ columns, data }) {
     []
   )
   const getCellValue = (e, j) => {
-
-    if (e.column.Header === 'First Name') {
+    if (e.column.Header === "First Name") {
       if (e.row.values.appointment_link !== undefined || e.row.values.appointment_link !== "") {
-        window.open(e.row.values.appointment_link, "", "width=400,height=600");
-
+        window.open(e.row.values.appointment_link, "", "width=400,height=600")
       }
     }
-    if (e.column.Header === ' First Name')
+    if (e.column.Header === " First Name")
       if (e.row.values.airtable_link !== undefined || e.row.values.airtable_link !== "") {
-        window.open(e.row.values.airtable_link, "", "width=400,height=600");
+        window.open(e.row.values.airtable_link, "", "width=400,height=600")
       }
 
-
-    if (e.column.Header === 'Name') {
-
+    if (e.column.Header === "Name") {
       if (e.row.values.conversation_link !== undefined || e.row.values.conversation_link !== "") {
-        window.open(e.row.values.conversation_link, "", "width=400,height=600");
-
+        window.open(e.row.values.conversation_link, "", "width=400,height=600")
       }
-
     }
-
-
-
-  };
+  }
 
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
     {
@@ -136,36 +124,39 @@ function TableComponent({ columns, data }) {
       data,
       defaultColumn,
       initialState: {
-        hiddenColumns: ['airtable_link', 'conversation_link', 'appointment_link']
-      }
+        hiddenColumns: ["airtable_link", "conversation_link", "appointment_link"],
+      },
     },
     useResizeColumns,
-    useFlexLayout,
+    useFlexLayout
     // useRowState,
   )
 
   return (
     <div {...getTableProps()} className="table">
       <div>
-        {headerGroups.map(headerGroup => (
-          <div onClick={() => getCellValue(headerGroup.headers[0])} {...headerGroup.getHeaderGroupProps()}
+        {headerGroups.map((headerGroup) => (
+          <div
+            onClick={() => getCellValue(headerGroup.headers[0])}
+            {...headerGroup.getHeaderGroupProps()}
             {...headerGroup.getHeaderGroupProps({
-              style: { fontWeight: 'bold', fontSize: '20px', background: '#0F4A82', paddingRight: '16px', color: 'white' },
+              style: {
+                fontWeight: "bold",
+                fontSize: "20px",
+                background: "#0F4A82",
+                paddingRight: "15px",
+                color: "white",
+              },
             })}
             className="tr"
           >
-            {headerGroup.headers.map(column => (
-              <div {...column.getHeaderProps(headerProps)} className="th" >
-                {column.render('Header')}
-
+            {headerGroup.headers.map((column) => (
+              <div {...column.getHeaderProps(headerProps)} className="th">
+                {column.render("Header")}
 
                 {/* Use column.getResizerProps to hook up the events correctly */}
                 {column.canResize && (
-                  <div
-                    {...column.getResizerProps()}
-                    className={`resizer ${column.isResizing ? 'isResizing' : ''
-                      }`}
-                  />
+                  <div {...column.getResizerProps()} className={`resizer ${column.isResizing ? "isResizing" : ""}`} />
                 )}
               </div>
             ))}
@@ -177,16 +168,17 @@ function TableComponent({ columns, data }) {
         {rows.map((row, cell, j) => {
           prepareRow(row)
           return (
-            <div {...row.getRowProps()} className="tr"
-            // onClick={(e) => {
-            //   debugger;
-            // }}
+            <div
+              {...row.getRowProps()}
+              className="tr"
+              // onClick={(e) => {
+              //   debugger;
+              // }}
             >
-              {row.cells.map(cell => {
-
+              {row.cells.map((cell) => {
                 return (
                   <div {...cell.getCellProps(cellProps)} className="td" onClick={() => getCellValue(cell, j)}>
-                    {cell.render('Cell')}
+                    {cell.render("Cell")}
                   </div>
                 )
               })}
@@ -199,60 +191,50 @@ function TableComponent({ columns, data }) {
 }
 
 function Table({ data, columns, tableName }) {
-
-  const [data2, setData2] = useState([]);
+  const [data2, setData2] = useState([])
   let widthX = 0
-  if (tableName === "Textline")
-    widthX = 1.5;
-  if (tableName === "AirTable")
-    widthX = 26;
-  if (tableName === "Acuity")
-    widthX = 20;
-
+  if (tableName === "Textline") widthX = 1.5
+  if (tableName === "AirTable") widthX = 3
+  if (tableName === "Acuity") widthX = 3
 
   React.useEffect(() => {
-    if (JSON.stringify(data2[0]) !== JSON.stringify(data[0]))
-      setData2(data)
-  });
+    if (JSON.stringify(data2[0]) !== JSON.stringify(data[0])) setData2(data)
+  })
 
   const newColumns = React.useMemo(
     () => [
       {
-        header: 'Delete',
-        accessor: 'delete',
+        header: "Delete",
+        accessor: "delete",
         width: widthX,
 
         Cell: ({ row }) => (
-
-          <div style={{ fontWeight: "bold", justifyContent: "center", alignItems: "center", textAlign: "center" }} onClick={() => {
-            const dataCopy = [...data2]
-            dataCopy.splice(row.index, 1)
-            setData2([...dataCopy])
-          }
-          }>
+          <div
+            style={{ fontWeight: "bold", justifyContent: "center", alignItems: "center", textAlign: "center" }}
+            onClick={() => {
+              const dataCopy = [...data2]
+              dataCopy.splice(row.index, 1)
+              setData2([...dataCopy])
+            }}
+          >
             X
           </div>
         ),
       },
-      ...columns
-
+      ...columns,
     ],
     [data2]
   )
   let tableWidth = "200%"
-  if (tableName === "Textline")
-    tableWidth = "100%"
+  if (tableName === "Textline") tableWidth = "100%"
 
   return (
-    <div >
+    <div>
       <Styles tableWidth={tableWidth}>
         <TableComponent columns={newColumns} data={data2} />
       </Styles>
     </div>
-
   )
-
-
 }
 
 export default Table
